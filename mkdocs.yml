@@ -1,0 +1,44 @@
+site_name: Madonna
+repo_url: https://github.com/FollowTheProcess/madonna
+site_url: https://FollowTheProcess.github.io/madonna/
+site_description: Python semver parsing library.
+site_author: Tom Fleet
+use_directory_urls: false
+strict: true
+nav:
+  - Home:
+      - Index: index.md
+  - Contributing:
+      - Guide: contributing/contributing.md
+      - Code of Conduct: contributing/code_of_conduct.md
+plugins:
+  - search
+theme:
+  name: material
+  font:
+    text: Roboto
+    code: SF Mono
+  feature:
+    tabs: true
+  palette:
+    primary: indigo
+    accent: blue
+markdown_extensions:
+  - codehilite
+  - pymdownx.highlight:
+      use_pygments: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.inlinehilite
+  - admonition
+  - extra
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_div_format
+  - pymdownx.details
+  - pymdownx.tabbed
+  - toc:
+      permalink: true
