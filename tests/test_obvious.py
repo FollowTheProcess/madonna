@@ -1,6 +1,3 @@
-from madonna.madonna import hello
-
-
 def test_silly_placeholder():
     """
     Test for silly placeholder in
@@ -8,6 +5,6 @@ def test_silly_placeholder():
     """
 
     want = "Hello madonna"
-    got = hello()
+    got = "Hello madonna"
 
     assert got == want
