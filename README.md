@@ -15,6 +15,16 @@ Python semver parsing library.
 
 ## Project Description
 
+Madonna is a small, simple [semver] utility library with support for parsing, writing, and otherwise interacting with semantic versions in code.
+
+**Why the stupid name?**
+
+Get it? "Like a Version"... 👏🏻
+
+Also naming things on PyPI is hard so
+
+⚠️ Unlike the successful artist, this madonna is in early development
+
 ## Installation
 
 ## Quickstart
