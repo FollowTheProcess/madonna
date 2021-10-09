@@ -140,7 +140,30 @@ def test_version_str(version: Version, want: str):
             Version(1, 2, 4, "rc.1", "build.456"),
             True,
         ),
+        (
+            Version(1, 2, 4, "rc.1", "build.123"),
+            Version(1, 2, 4, "rc.1"),
+            True,
+        ),
+        (
+            Version(1, 2, 4, "alpha"),
+            Version(1, 2, 4, "beta"),
+            False,
+        ),
+        (
+            Version(1, 2, 4, None, "bad"),
+            Version(1, 2, 4, None, "bad"),
+            False,
+        ),
     ],
 )
 def test_version_less_than(v1: Version, v2: Version, want: bool):
     assert (v1 < v2) == want
+
+
+def test_version_less_than_raises_if_invalid_object():
+    v1 = Version(1, 2, 4)
+    v2 = "I'm a string"
+
+    with pytest.raises(NotImplementedError):
+        v1 < v2

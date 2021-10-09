@@ -95,7 +95,6 @@ class Version:
             other_rc = re.match(pattern=r"rc.(?P<rc_ver>\d+)", string=v.prerelease)
 
             if not our_rc or not other_rc:
-
                 return False
 
             our_rc_ver = int(our_rc.group("rc_ver"))
