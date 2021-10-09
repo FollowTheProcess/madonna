@@ -145,16 +145,6 @@ def test_version_str(version: Version, want: str):
             Version(1, 2, 4, "rc.1"),
             True,
         ),
-        (
-            Version(1, 2, 4, "alpha"),
-            Version(1, 2, 4, "beta"),
-            False,
-        ),
-        (
-            Version(1, 2, 4, None, "bad"),
-            Version(1, 2, 4, None, "bad"),
-            False,
-        ),
     ],
 )
 def test_version_less_than(v1: Version, v2: Version, want: bool):
@@ -166,4 +156,18 @@ def test_version_less_than_raises_if_invalid_object():
     v2 = "I'm a string"
 
     with pytest.raises(NotImplementedError):
+        v1 < v2
+
+
+@pytest.mark.parametrize(
+    "v1, v2",
+    [
+        (Version(5, 2, 4, "badrelease1"), Version(5, 2, 4, "badrelease2")),
+        (Version(5, 2, 4, None, "badbuild1"), Version(5, 2, 4, None, "badbuild2")),
+    ],
+)
+def test_version_less_than_raises_if_cannot_parse_pre_or_build(
+    v1: Version, v2: Version
+):
+    with pytest.raises(ValueError):
         v1 < v2

@@ -95,7 +95,7 @@ class Version:
             other_rc = re.match(pattern=r"rc.(?P<rc_ver>\d+)", string=v.prerelease)
 
             if not our_rc or not other_rc:
-                return False
+                raise ValueError("Could not parse comparable pre-release version info.")
 
             our_rc_ver = int(our_rc.group("rc_ver"))
             other_rc_ver = int(other_rc.group("rc_ver"))
@@ -114,8 +114,9 @@ class Version:
             )
 
             if not our_build or not other_build:
-
-                return False
+                raise ValueError(
+                    "Could not parse comparable build-metadata version info."
+                )
 
             our_build_ver = int(our_build.group("build_ver"))
             other_build_ver = int(other_build.group("build_ver"))
