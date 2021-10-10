@@ -67,6 +67,66 @@ class Version:
 
         return ver
 
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Version):
+            raise NotImplementedError(f"Cannot compare Version and {type(other)}")
+
+        return (
+            self.major,
+            self.minor,
+            self.patch,
+            self.prerelease,
+            self.buildmetadata,
+        ) == (
+            other.major,
+            other.minor,
+            other.patch,
+            other.prerelease,
+            other.buildmetadata,
+        )
+
+    def __lt__(self, other: object) -> bool:
+        if not isinstance(other, Version):
+            raise NotImplementedError(f"Cannot compare Version and {type(other)}")
+
+        if (self.major, self.minor, self.patch) < (
+            other.major,
+            other.minor,
+            other.patch,
+        ):
+            return True
+
+        pre_release_comp = self._compare_prerelease(other)
+        if pre_release_comp == -1:
+            return True
+
+        build_comp = self._compare_build(other)
+        if build_comp == -1:
+            return True
+
+        return False
+
+    def __gt__(self, other: object) -> bool:
+        if not isinstance(other, Version):
+            raise NotImplementedError(f"Cannot compare Version and {type(other)}")
+
+        if (self.major, self.minor, self.patch) > (
+            other.major,
+            other.minor,
+            other.patch,
+        ):
+            return True
+
+        pre_release_comp = self._compare_prerelease(other)
+        if pre_release_comp == 1:
+            return True
+
+        build_comp = self._compare_build(other)
+        if build_comp == 1:
+            return True
+
+        return False
+
     def _compare_prerelease(self, other: Version) -> int:
         """
         Helper to try and compare the pre-release versions.
