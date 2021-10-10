@@ -67,62 +67,102 @@ class Version:
 
         return ver
 
-    def __lt__(self, v: Version) -> bool:
-        if not isinstance(v, Version):
-            raise NotImplementedError(
-                f"Cannot compare object of type Version and {type(v)}"
-            )
+    def _compare_prerelease(self, other: Version) -> int:
+        """
+        Helper to try and compare the pre-release versions.
 
-        diff = (self.major, self.minor, self.patch) < (v.major, v.minor, v.patch)
-        if diff:
-            # If the numeric versions are less, return True straight away
-            return True
+        It will check for string equality, whether or not
+        the different versions have pre-releases, check
+        for integers in the text and compare based on them,
+        and if none of this works will raise a ValueError.
 
-        # If our version has a pre-release and the other doesn't
-        # ours is less
-        if self.prerelease and not v.prerelease:
-            return True
+        Note: This is only called if the numeric version
+        is equal.
+        """
+        if self.prerelease == other.prerelease:
+            # The pre release strings are equal
+            return 0
+        elif self.prerelease and not other.prerelease:
+            # Ours has a pre-release but the other doesn't
+            # meaning ours is less
+            return -1
+        elif not self.prerelease and other.prerelease:
+            # Ours doesn't have a pre-release but the other
+            # does meaning ours is greater
+            return 1
 
-        # If our version has a build tag and the other doesn't
-        # ours is less
-        if self.buildmetadata and not v.buildmetadata:
-            return True
+        # Try and extract a number to compare
+        if self.prerelease and other.prerelease:
+            ours = re.findall(pattern=r"\d+", string=self.prerelease)
+            others = re.findall(pattern=r"\d+", string=other.prerelease)
 
-        # If our version has a prerelease of e.g. 'rc.1' and other
-        # has e.g. 'rc.2', ours is less
-        if self.prerelease and v.prerelease:
-            our_rc = re.match(pattern=r"rc.(?P<rc_ver>\d+)", string=self.prerelease)
-            other_rc = re.match(pattern=r"rc.(?P<rc_ver>\d+)", string=v.prerelease)
-
-            if not our_rc or not other_rc:
+            if not ours or not others:
                 raise ValueError("Could not parse comparable pre-release version info.")
 
-            our_rc_ver = int(our_rc.group("rc_ver"))
-            other_rc_ver = int(other_rc.group("rc_ver"))
+            if len(ours) > 1 or len(others) > 1:
+                raise ValueError("Multiple integers found in pre-release version.")
 
-            if our_rc_ver < other_rc_ver:
-                return True
+            our_version = int(ours.pop())
+            other_version = int(others.pop())
 
-        # If our version has a build of e.g. 'build.123' and other
-        # has e.g. 'build.456', ours is less
-        if self.buildmetadata and v.buildmetadata:
-            our_build = re.match(
-                pattern=r"build.(?P<build_ver>\d+)", string=self.buildmetadata
-            )
-            other_build = re.match(
-                pattern=r"build.(?P<build_ver>\d+)", string=v.buildmetadata
-            )
+            if our_version == other_version:
+                return 0
+            elif our_version > other_version:
+                return 1
+            elif our_version < other_version:
+                return -1
 
-            if not our_build or not other_build:
+        # If we get here, we couldn't parse the pre-release
+        raise ValueError(f"Could not compare {self.prerelease} and {other.prerelease}")
+
+    def _compare_build(self, other: Version) -> int:
+        """
+        Helper to try and compare the build metadata versions.
+
+        It will check for string equality, whether or not
+        the different versions have pre-releases, check
+        for integers in the text and compare based on them,
+        and if none of this works will raise a ValueError.
+
+        Note: This is only called if both the numeric version
+        and the pre-release strings are equal.
+        """
+        if self.buildmetadata == other.buildmetadata:
+            # The pre release strings are equal
+            return 0
+        elif self.buildmetadata and not other.buildmetadata:
+            # Ours has a pre-release but the other doesn't
+            # meaning ours is less
+            return -1
+        elif not self.buildmetadata and other.buildmetadata:
+            # Ours doesn't have a pre-release but the other
+            # does meaning ours is greater
+            return 1
+
+        # Try and extract a number to compare
+        if self.buildmetadata and other.buildmetadata:
+            ours = re.findall(pattern=r"\d+", string=self.buildmetadata)
+            others = re.findall(pattern=r"\d+", string=other.buildmetadata)
+
+            if not ours or not others:
                 raise ValueError(
-                    "Could not parse comparable build-metadata version info."
+                    "Could not parse comparable build metadata version info."
                 )
 
-            our_build_ver = int(our_build.group("build_ver"))
-            other_build_ver = int(other_build.group("build_ver"))
+            if len(ours) > 1 or len(others) > 1:
+                raise ValueError("Multiple integers found in build metadata version.")
 
-            if our_build_ver < other_build_ver:
-                return True
+            our_version = int(ours.pop())
+            other_version = int(others.pop())
 
-        # We've exhausted every scenario we know how to compare
-        return False
+            if our_version == other_version:
+                return 0
+            elif our_version > other_version:
+                return 1
+            elif our_version < other_version:
+                return -1
+
+        # If we get here, we couldn't parse the pre-release
+        raise ValueError(
+            f"Could not compare {self.buildmetadata} and {other.buildmetadata}"
+        )
