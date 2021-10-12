@@ -375,3 +375,18 @@ def test_bump_minor(v: Version, want: Version):
 )
 def test_bump_patch(v: Version, want: Version):
     assert v.bump_patch() == want
+
+
+@pytest.mark.parametrize(
+    "version, want",
+    [
+        (Version(1, 2, 4, None, None), "v1.2.4"),
+        (Version(1, 2, 4), "v1.2.4"),
+        (Version(2, 6, 8, "rc.2", None), "v2.6.8-rc.2"),
+        (Version(2, 6, 8, "rc.2"), "v2.6.8-rc.2"),
+        (Version(7, 6, 2, None, "build.123"), "v7.6.2-build.123"),
+        (Version(7, 2, 1, "rc.1", "build.123"), "v7.2.1-rc.1-build.123"),
+    ],
+)
+def test_version_to_string(version: Version, want: str):
+    assert version.to_string() == want
