@@ -68,13 +68,27 @@ def test_version_str(version: Version, want: str):
     assert str(version) == want
 
 
-def test_version_eq():
-    v1 = Version(1, 2, 3, "pre", "build")
-    v2 = Version(1, 2, 3, "pre", "build")
-    v3 = Version(6, 2, 4, "different", "build")
-
-    assert (v1 == v2) is True
-    assert (v1 == v3) is False
+@pytest.mark.parametrize(
+    "v1, v2, want",
+    [
+        (Version(1, 2, 3), Version(1, 2, 3), True),
+        (Version(1, 2, 3, "pre"), Version(1, 2, 3, "pre"), True),
+        (Version(1, 2, 3, "pre", "build"), Version(1, 2, 3, "pre", "build"), True),
+        (Version(1, 2, 3, None, None), Version(1, 2, 3, None, None), True),
+        (Version(0, 2, 3), Version(1, 2, 3), False),
+        (Version(1, 1, 3), Version(1, 2, 3), False),
+        (Version(1, 2, 2), Version(1, 2, 3), False),
+        (Version(1, 2, 3, "pre"), Version(1, 2, 3), False),
+        (Version(1, 2, 3, None, "build"), Version(1, 2, 3, None, None), False),
+        (
+            Version(1, 2, 3, "pre", "build"),
+            Version(1, 2, 3, "diffpre", "diffbuild"),
+            False,
+        ),
+    ],
+)
+def test_version_eq(v1: Version, v2: Version, want: bool):
+    assert (v1 == v2) is want
 
 
 def test_version_eq_invalid_type():
@@ -82,6 +96,29 @@ def test_version_eq_invalid_type():
 
     with pytest.raises(TypeError):
         v == "a string"
+
+
+@pytest.mark.parametrize(
+    "v1, v2, want",
+    [
+        (Version(1, 2, 3), Version(1, 2, 3), False),
+        (Version(1, 2, 3, "pre"), Version(1, 2, 3, "pre"), False),
+        (Version(1, 2, 3, "pre", "build"), Version(1, 2, 3, "pre", "build"), False),
+        (Version(1, 2, 3, None, None), Version(1, 2, 3, None, None), False),
+        (Version(0, 2, 3), Version(1, 2, 3), True),
+        (Version(1, 1, 3), Version(1, 2, 3), True),
+        (Version(1, 2, 2), Version(1, 2, 3), True),
+        (Version(1, 2, 3, "pre"), Version(1, 2, 3), True),
+        (Version(1, 2, 3, None, "build"), Version(1, 2, 3, None, None), True),
+        (
+            Version(1, 2, 3, "pre", "build"),
+            Version(1, 2, 3, "diffpre", "diffbuild"),
+            True,
+        ),
+    ],
+)
+def test_version_ne(v1: Version, v2: Version, want: bool):
+    assert (v1 != v2) is want
 
 
 @pytest.mark.parametrize(
