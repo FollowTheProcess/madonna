@@ -327,3 +327,48 @@ def test_compare_build_raises_at_the_end():
 
     with pytest.raises(ValueError):
         v1._compare_build(v2)
+
+
+@pytest.mark.parametrize(
+    "v, want",
+    [
+        (Version(1, 2, 4), Version(2, 0, 0)),
+        (Version(0, 0, 1), Version(1, 0, 0)),
+        (Version(0, 0, 0), Version(1, 0, 0)),
+        (Version(0, 7, 6, "pre"), Version(1, 0, 0)),
+        (Version(0, 7, 6, "pre", "build"), Version(1, 0, 0)),
+        (Version(999999, 999, 9999, "holy_crap"), Version(1000000, 0, 0)),
+    ],
+)
+def test_bump_major(v: Version, want: Version):
+    assert v.bump_major() == want
+
+
+@pytest.mark.parametrize(
+    "v, want",
+    [
+        (Version(1, 2, 4), Version(1, 3, 0)),
+        (Version(0, 0, 1), Version(0, 1, 0)),
+        (Version(0, 0, 0), Version(0, 1, 0)),
+        (Version(0, 7, 6, "pre"), Version(0, 8, 0)),
+        (Version(0, 7, 6, "pre", "build"), Version(0, 8, 0)),
+        (Version(999999, 999, 9999, "holy_crap"), Version(999999, 1000, 0)),
+    ],
+)
+def test_bump_minor(v: Version, want: Version):
+    assert v.bump_minor() == want
+
+
+@pytest.mark.parametrize(
+    "v, want",
+    [
+        (Version(1, 2, 4), Version(1, 2, 5)),
+        (Version(0, 0, 1), Version(0, 0, 2)),
+        (Version(0, 0, 0), Version(0, 0, 1)),
+        (Version(0, 7, 6, "pre"), Version(0, 7, 7)),
+        (Version(0, 7, 6, "pre", "build"), Version(0, 7, 7)),
+        (Version(999999, 999, 9999, "holy_crap"), Version(999999, 999, 10000)),
+    ],
+)
+def test_bump_patch(v: Version, want: Version):
+    assert v.bump_patch() == want
