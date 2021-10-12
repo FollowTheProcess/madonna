@@ -333,3 +333,27 @@ class Version:
         ```
         """
         return Version(self.major, self.minor, self.patch + 1)
+
+    def to_string(self) -> str:
+        """
+        Generate a string representation of the
+        `Version`.
+
+        Returns:
+            str: Version string.
+
+        Examples:
+
+        ```python
+        >>> v = Version(1, 2, 4)
+        >>> v.to_string()
+        'v1.2.4'
+        ```
+
+        ```python
+        >>> v = Version(1, 2, 4, "rc.2", "build.6")
+        >>> v.to_string()
+        'v1.2.4-rc.2-build.6'
+        ```
+        """
+        return str(self)
