@@ -250,3 +250,75 @@ class Version:
         raise ValueError(
             f"Could not compare {self.buildmetadata} and {other.buildmetadata}"
         )
+
+    def bump_major(self) -> Version:
+        """
+        Return a new `Version` with the major version
+        number bumped.
+
+        Returns:
+            Version: New bumped version.
+
+        Examples:
+
+        ```python
+        >>> v1 = Version(1, 2, 4)
+        >>> v1.bump_major()
+        Version(major=2, minor=0, patch=0, prerelease=None, buildmetadata=None)
+        ```
+
+        ```python
+        >>> v1 = Version(0, 7, 6, "rc.1", "build.123")
+        >>> v1.bump_major()
+        Version(major=1, minor=0, patch=0, prerelease=None, buildmetadata=None)
+        ```
+        """
+        return Version(self.major + 1, 0, 0)
+
+    def bump_minor(self) -> Version:
+        """
+        Return a new `Version` with the minor version
+        number bumped.
+
+        Returns:
+            Version: New bumped version.
+
+        Examples:
+
+        ```python
+        >>> v1 = Version(1, 2, 4)
+        >>> v1.bump_minor()
+        Version(major=1, minor=3, patch=0, prerelease=None, buildmetadata=None)
+        ```
+
+        ```python
+        >>> v1 = Version(0, 7, 6, "rc.1", "build.123")
+        >>> v1.bump_major()
+        Version(major=0, minor=8, patch=0, prerelease=None, buildmetadata=None)
+        ```
+        """
+        return Version(self.major, self.minor + 1, 0)
+
+    def bump_patch(self) -> Version:
+        """
+        Return a new `Version` with the patch version
+        number bumped.
+
+        Returns:
+            Version: New bumped version.
+
+        Examples:
+
+        ```python
+        >>> v1 = Version(1, 2, 4)
+        >>> v1.bump_patch()
+        Version(major=1, minor=2, patch=5, prerelease=None, buildmetadata=None)
+        ```
+
+        ```python
+        >>> v1 = Version(0, 7, 6, "rc.1", "build.123")
+        >>> v1.bump_major()
+        Version(major=0, minor=7, patch=7, prerelease=None, buildmetadata=None)
+        ```
+        """
+        return Version(self.major, self.minor, self.patch + 1)

@@ -310,7 +310,8 @@ def docs(session: nox.Session) -> None:
     """
 
     update_seeds(session)
-    session.install(*get_requirements("docs"))
+    # We need the package installed to autogen API docs
+    session.install(".[docs]")
 
     if "serve" in session.posargs:
         webbrowser.open(url="http://127.0.0.1:8000/madonna/")
