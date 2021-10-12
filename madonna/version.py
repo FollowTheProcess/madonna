@@ -68,8 +68,8 @@ class Version:
         return ver
 
     def __eq__(self, other: object) -> bool:
-        if not isinstance(other, Version):
-            raise NotImplementedError(f"Cannot compare Version and {type(other)}")
+        if not isinstance(other, Version):  # pragma: no cover
+            return NotImplemented
 
         return (
             self.major,
@@ -86,8 +86,8 @@ class Version:
         )
 
     def __lt__(self, other: object) -> bool:
-        if not isinstance(other, Version):
-            raise NotImplementedError(f"Cannot compare Version and {type(other)}")
+        if not isinstance(other, Version):  # pragma: no cover
+            return NotImplemented
 
         if (self.major, self.minor, self.patch) < (
             other.major,
@@ -107,8 +107,8 @@ class Version:
         return False
 
     def __gt__(self, other: object) -> bool:
-        if not isinstance(other, Version):
-            raise NotImplementedError(f"Cannot compare Version and {type(other)}")
+        if not isinstance(other, Version):  # pragma: no cover
+            return NotImplemented
 
         if (self.major, self.minor, self.patch) > (
             other.major,
@@ -123,6 +123,30 @@ class Version:
 
         build_comp = self._compare_build(other)
         if build_comp == 1:
+            return True
+
+        return False
+
+    def __le__(self, other: object) -> bool:
+        if not isinstance(other, Version):  # pragma: no cover
+            return NotImplemented
+
+        if self == other:
+            return True
+
+        if self < other:
+            return True
+
+        return False
+
+    def __ge__(self, other: object) -> bool:
+        if not isinstance(other, Version):  # pragma: no cover
+            return NotImplemented
+
+        if self == other:
+            return True
+
+        if self > other:
             return True
 
         return False
