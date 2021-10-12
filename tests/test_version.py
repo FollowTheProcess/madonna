@@ -5,6 +5,7 @@ Author: Tom Fleet
 Created: 09/10/2021
 """
 
+
 import pytest
 
 from madonna import Version
@@ -76,6 +77,13 @@ def test_version_eq():
     assert (v1 == v3) is False
 
 
+def test_version_eq_invalid_type():
+    v = Version(1, 2, 4)
+
+    with pytest.raises(TypeError):
+        v == "a string"
+
+
 @pytest.mark.parametrize(
     "v1, v2, want",
     [
@@ -99,6 +107,13 @@ def test_version_eq():
 )
 def test_version_lt(v1: Version, v2: Version, want: bool):
     assert (v1 < v2) is want
+
+
+def test_version_lt_invalid_type():
+    v = Version(1, 2, 4)
+
+    with pytest.raises(TypeError):
+        v < "a string"
 
 
 @pytest.mark.parametrize(
@@ -127,6 +142,13 @@ def test_version_le(v1: Version, v2: Version, want: bool):
     assert (v1 <= v2) is want
 
 
+def test_version_le_invalid_type():
+    v = Version(1, 2, 4)
+
+    with pytest.raises(TypeError):
+        v <= "a string"
+
+
 @pytest.mark.parametrize(
     "v1, v2, want",
     [
@@ -150,6 +172,13 @@ def test_version_le(v1: Version, v2: Version, want: bool):
 )
 def test_version_gt(v1: Version, v2: Version, want: bool):
     assert (v1 > v2) is want
+
+
+def test_version_gt_invalid_type():
+    v = Version(1, 2, 4)
+
+    with pytest.raises(TypeError):
+        v > "a string"
 
 
 @pytest.mark.parametrize(
@@ -176,6 +205,13 @@ def test_version_gt(v1: Version, v2: Version, want: bool):
 )
 def test_version_ge(v1: Version, v2: Version, want: bool):
     assert (v1 >= v2) is want
+
+
+def test_version_ge_invalid_type():
+    v = Version(1, 2, 4)
+
+    with pytest.raises(TypeError):
+        v >= "a string"
 
 
 @pytest.mark.parametrize(
