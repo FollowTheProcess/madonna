@@ -10,6 +10,17 @@ from __future__ import annotations
 import re
 from typing import Optional
 
+# See https://semver.org/#is-there-a-suggested-regular-expression-regex-to-check-a-semver-string
+# The only thing we've added is the optional v at the start
+_SEMVER_REGEX = re.compile(
+    r"""^v?(?P<major>0|[1-9]\d*)\. # Major
+    (?P<minor>0|[1-9]\d*)\. # Minor
+    (?P<patch>0|[1-9]\d*) # Patch
+    (?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))? # Optional pre-release # noqa: E501
+    (?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$""",  # Optional build metadata
+    flags=re.VERBOSE,
+)
+
 
 class Version:
     def __init__(
