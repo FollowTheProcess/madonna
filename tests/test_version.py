@@ -22,7 +22,10 @@ def test_version_init():
 
 def test_version_repr():
     v = Version(1, 2, 4, "rc.1", "build.123")
-    want = "Version(major=1, minor=2, patch=4, prerelease='rc.1', buildmetadata='build.123')"  # noqa: E501
+    want = (
+        "Version(major=1, minor=2, patch=4, prerelease='rc.1',"
+        " buildmetadata='build.123')"
+    )
     assert repr(v) == want
 
 
