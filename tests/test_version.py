@@ -75,9 +75,6 @@ def test_version_eq():
     assert (v1 == v2) is True
     assert (v1 == v3) is False
 
-    with pytest.raises(NotImplementedError):
-        v1 == "a string"
-
 
 @pytest.mark.parametrize(
     "v1, v2, want",
@@ -107,6 +104,32 @@ def test_version_lt(v1: Version, v2: Version, want: bool):
 @pytest.mark.parametrize(
     "v1, v2, want",
     [
+        (Version(0, 7, 6), Version(1, 7, 6), True),
+        (Version(1, 6, 6), Version(1, 7, 6), True),
+        (Version(1, 7, 5), Version(1, 7, 6), True),
+        (Version(1, 7, 6), Version(1, 7, 6), True),
+        (Version(1, 7, 6, "pre"), Version(1, 7, 6), True),
+        (Version(1, 7, 6, "pre", "build"), Version(1, 7, 6), True),
+        (Version(1, 7, 6, "pre1"), Version(1, 7, 6, "pre2"), True),
+        (Version(1, 7, 6, "pre1", "build1"), Version(1, 7, 6, "pre1", "build2"), True),
+        (Version(1, 7, 6, None, "build1"), Version(1, 7, 6, None, "build2"), True),
+        (Version(1, 7, 6), Version(0, 7, 6), False),
+        (Version(1, 7, 6), Version(1, 6, 6), False),
+        (Version(1, 7, 6), Version(1, 7, 5), False),
+        (Version(1, 7, 6), Version(1, 7, 6, "pre"), False),
+        (Version(1, 7, 6), Version(1, 7, 6, "pre", "build"), False),
+        (Version(1, 7, 6, "pre2"), Version(1, 7, 6, "pre1"), False),
+        (Version(1, 7, 6, "pre2", "build2"), Version(1, 7, 6, "pre1", "build1"), False),
+        (Version(1, 7, 6, None, "build2"), Version(1, 7, 6, None, "build1"), False),
+    ],
+)
+def test_version_le(v1: Version, v2: Version, want: bool):
+    assert (v1 <= v2) is want
+
+
+@pytest.mark.parametrize(
+    "v1, v2, want",
+    [
         (Version(0, 7, 6), Version(1, 7, 6), False),
         (Version(1, 6, 6), Version(1, 7, 6), False),
         (Version(1, 7, 5), Version(1, 7, 6), False),
@@ -127,6 +150,32 @@ def test_version_lt(v1: Version, v2: Version, want: bool):
 )
 def test_version_gt(v1: Version, v2: Version, want: bool):
     assert (v1 > v2) is want
+
+
+@pytest.mark.parametrize(
+    "v1, v2, want",
+    [
+        (Version(0, 7, 6), Version(1, 7, 6), False),
+        (Version(1, 6, 6), Version(1, 7, 6), False),
+        (Version(1, 7, 5), Version(1, 7, 6), False),
+        (Version(1, 7, 6, "pre"), Version(1, 7, 6), False),
+        (Version(1, 7, 6, "pre", "build"), Version(1, 7, 6), False),
+        (Version(1, 7, 6, "pre1"), Version(1, 7, 6, "pre2"), False),
+        (Version(1, 7, 6, "pre1", "build1"), Version(1, 7, 6, "pre1", "build2"), False),
+        (Version(1, 7, 6, None, "build1"), Version(1, 7, 6, None, "build2"), False),
+        (Version(1, 7, 6), Version(0, 7, 6), True),
+        (Version(1, 7, 6), Version(1, 7, 6), True),
+        (Version(1, 7, 6), Version(1, 6, 6), True),
+        (Version(1, 7, 6), Version(1, 7, 5), True),
+        (Version(1, 7, 6), Version(1, 7, 6, "pre"), True),
+        (Version(1, 7, 6), Version(1, 7, 6, "pre", "build"), True),
+        (Version(1, 7, 6, "pre2"), Version(1, 7, 6, "pre1"), True),
+        (Version(1, 7, 6, "pre2", "build2"), Version(1, 7, 6, "pre1", "build1"), True),
+        (Version(1, 7, 6, None, "build2"), Version(1, 7, 6, None, "build1"), True),
+    ],
+)
+def test_version_ge(v1: Version, v2: Version, want: bool):
+    assert (v1 >= v2) is want
 
 
 @pytest.mark.parametrize(
