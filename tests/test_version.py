@@ -442,3 +442,22 @@ def test_version_to_tuple(version: Version, want: VersionTuple):
 )
 def test_version_to_dict(version: Version, want: VersionDict):
     assert version.to_dict() == want
+
+
+@pytest.mark.parametrize(
+    "version, want",
+    [
+        (
+            Version(1, 2, 4),
+            '{"major": 1, "minor": 2, "patch": 4, "prerelease": null, "buildmetadata":'
+            " null}",
+        ),
+        (
+            Version(1, 2, 4, "rc.1", "build.2"),
+            '{"major": 1, "minor": 2, "patch": 4, "prerelease": "rc.1",'
+            ' "buildmetadata": "build.2"}',
+        ),
+    ],
+)
+def test_version_to_json(version: Version, want: str):
+    assert version.to_json() == want
