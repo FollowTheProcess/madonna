@@ -8,7 +8,13 @@ Created: 08/10/2021
 from __future__ import annotations
 
 import re
-from typing import Optional, Tuple, TypedDict
+import sys
+from typing import Optional, Tuple
+
+if sys.version_info >= (3, 8):  # pragma: no cover
+    from typing import TypedDict
+else:
+    from typing_extensions import TypedDict
 
 # See https://semver.org/#is-there-a-suggested-regular-expression-regex-to-check-a-semver-string
 # The only thing we've added is the optional v at the start
