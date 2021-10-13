@@ -7,6 +7,7 @@ Created: 08/10/2021
 
 from __future__ import annotations
 
+import json
 import re
 import sys
 from typing import Optional, Tuple
@@ -429,3 +430,26 @@ class Version:
             "prerelease": self.prerelease,
             "buildmetadata": self.buildmetadata,
         }
+
+    def to_json(self) -> str:
+        """
+        Return the `Version` as a JSON string.
+
+        Returns:
+            str: The Version JSON string.
+
+        Examples:
+
+        ```python
+        >>> v = Version(1, 2, 4)
+        >>> v.to_json()
+        '{"major": 1, "minor": 2, "patch": 4, "prerelease": null, "buildmetadata": null}'
+        ```
+
+        ```python
+        >>> v = Version(1, 2, 4, "rc.1", "build.2")
+        >>> v.to_json()
+        '{"major": 1, "minor": 2, "patch": 4, "prerelease": "rc.1", "buildmetadata": "build.2"}'
+        ```
+        """
+        return json.dumps(self.to_dict())
