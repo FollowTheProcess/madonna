@@ -8,7 +8,7 @@ Created: 08/10/2021
 from __future__ import annotations
 
 import re
-from typing import Optional
+from typing import Optional, Tuple, TypedDict
 
 # See https://semver.org/#is-there-a-suggested-regular-expression-regex-to-check-a-semver-string
 # The only thing we've added is the optional v at the start
@@ -20,6 +20,19 @@ _SEMVER_REGEX = re.compile(
     (?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$""",  # Optional build metadata
     flags=re.VERBOSE,
 )
+
+
+VersionDict = TypedDict(
+    "VersionDict",
+    {
+        "major": int,
+        "minor": int,
+        "patch": int,
+        "prerelease": Optional[str],
+        "buildmetadata": Optional[str],
+    },
+)
+VersionTuple = Tuple[int, int, int, Optional[str], Optional[str]]
 
 
 class Version:
@@ -357,3 +370,56 @@ class Version:
         ```
         """
         return str(self)
+
+    def to_tuple(self) -> VersionTuple:
+        """
+        Return the `Version` as a tuple of it's
+        fields.
+
+        Returns:
+            VersionTuple: The Version tuple.
+
+        Examples:
+
+        ```python
+        >>> v = Version(1, 2, 4)
+        >>> v.to_tuple()
+        (1, 2, 4, None, None)
+        ```
+
+        ```python
+        >>> v = Version(1, 2, 4, "rc.2", "build.6")
+        >>> v.to_tuple()
+        (1, 2, 4, "rc.2", "build.6")
+        ```
+        """
+        return (self.major, self.minor, self.patch, self.prerelease, self.buildmetadata)
+
+    def to_dict(self) -> VersionDict:
+        """
+        Return the `Version` as a dictionary.
+
+        Returns:
+            VersionDict: The Version dictionary.
+
+        Examples:
+
+        ```python
+        >>> v = Version(1, 2, 4)
+        >>> v.to_dict()
+        {'major': 1, 'minor': 2, 'patch': 4, 'prerelease': None, 'buildmetadata': None}
+        ```
+
+        ```python
+        >>> v = Version(1, 2, 4, "rc.1", "build.2")
+        >>> v.to_dict()
+        {'major': 1, 'minor': 2, 'patch': 4, 'prerelease': 'rc.1', 'buildmetadata': 'build.2'}
+        ```
+        """
+        return {
+            "major": self.major,
+            "minor": self.minor,
+            "patch": self.patch,
+            "prerelease": self.prerelease,
+            "buildmetadata": self.buildmetadata,
+        }
