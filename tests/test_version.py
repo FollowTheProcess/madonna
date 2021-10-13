@@ -9,6 +9,7 @@ Created: 09/10/2021
 import pytest
 
 from madonna import Version
+from madonna.version import VersionDict, VersionTuple
 
 
 def test_version_init():
@@ -390,3 +391,54 @@ def test_bump_patch(v: Version, want: Version):
 )
 def test_version_to_string(version: Version, want: str):
     assert version.to_string() == want
+
+
+@pytest.mark.parametrize(
+    "version, want",
+    [
+        (Version(1, 2, 4), (1, 2, 4, None, None)),
+        (Version(1, 2, 4, "rc.1"), (1, 2, 4, "rc.1", None)),
+        (Version(1, 2, 4, "rc.3", "build.8"), (1, 2, 4, "rc.3", "build.8")),
+    ],
+)
+def test_version_to_tuple(version: Version, want: VersionTuple):
+    assert version.to_tuple() == want
+
+
+@pytest.mark.parametrize(
+    "version, want",
+    [
+        (
+            Version(1, 2, 4),
+            {
+                "major": 1,
+                "minor": 2,
+                "patch": 4,
+                "prerelease": None,
+                "buildmetadata": None,
+            },
+        ),
+        (
+            Version(1, 2, 4, "rc.1"),
+            {
+                "major": 1,
+                "minor": 2,
+                "patch": 4,
+                "prerelease": "rc.1",
+                "buildmetadata": None,
+            },
+        ),
+        (
+            Version(1, 2, 4, "rc.1", "build.123"),
+            {
+                "major": 1,
+                "minor": 2,
+                "patch": 4,
+                "prerelease": "rc.1",
+                "buildmetadata": "build.123",
+            },
+        ),
+    ],
+)
+def test_version_to_dict(version: Version, want: VersionDict):
+    assert version.to_dict() == want
