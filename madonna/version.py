@@ -12,6 +12,7 @@ import re
 import sys
 from typing import Optional, Tuple
 
+# Compatability with python 3.7
 if sys.version_info >= (3, 8):  # pragma: no cover
     from typing import TypedDict
 else:
@@ -401,7 +402,7 @@ class Version:
         ```python
         >>> v = Version(1, 2, 4, "rc.2", "build.6")
         >>> v.to_string()
-        'v1.2.4-rc.2-build.6'
+        'v1.2.4-rc.2+build.6'
         ```
         """
         return str(self)
@@ -520,6 +521,32 @@ class Version:
 
     @classmethod
     def from_string(cls, string: str) -> Version:
+        """
+        Construct and return a `Version` from a valid semver
+        string.
+
+        Args:
+            string (str): The semver string.
+
+        Raises:
+            ValueError: If the semver string does not
+                pass the official semver regex.
+
+        Returns:
+            Version: The constructed Version.
+
+        Examples:
+
+        ```python
+        >>> Version.from_string("v1.2.4")
+        Version(major=1, minor=2, patch=4, prerelease=None, buildmetadata=None)
+        ```
+
+        ```python
+        >>> Version.from_string("v1.2.4-rc.1+build.123")
+        Version(major=1, minor=2, patch=4, prerelease='rc.1', buildmetadata='build.123')
+        ```
+        """
         match = _SEMVER_REGEX.match(string)
         if not match:
             raise ValueError(f"{string!r} is not a valid semver string.")
@@ -533,3 +560,61 @@ class Version:
                 buildmetadata=match.group("buildmetadata"),
             )
         )
+
+    @classmethod
+    def from_tuple(cls, tup: VersionTuple) -> Version:
+        """
+        Construct and return a `Version` from a tuple of it's
+        parts.
+
+        Args:
+            tup (VersionTuple): The tuple to construct the Version
+                from.
+
+        Returns:
+            Version: The constructed Version.
+
+        Examples:
+
+        ```python
+        >>> v = (1, 2, 4)
+        >>> Version.from_tuple(v)
+        Version(major=1, minor=2, patch=4, prerelease=None, buildmetadata=None)
+        ```
+
+        ```python
+        >>> v = (1, 2, 4, "rc.1", "build.123")
+        >>> Version.from_tuple(v)
+        Version(major=1, minor=2, patch=4, prerelease='rc.1', buildmetadata='build.123')
+        ```
+        """
+        return Version(*tup)
+
+    @classmethod
+    def from_json(cls, json_string: str) -> Version:
+        """
+        Construct and return a `Version` from a json string
+        of it's parts.
+
+        Args:
+            json_string (str): The json string.
+
+        Returns:
+            Version: The constructed Version.
+
+        Examples:
+
+        ```python
+        >>> v = '{"major": 1, "minor": 2, "patch": 4}'
+        >>> Version.from_json(v)
+        Version(major=1, minor=2, patch=4, prerelease=None, buildmetadata=None)
+        ```
+
+        ```python
+        >>> v = '{"major": 1, "minor": 2, "patch": 4, "prerelease": "rc.1", "buildmetadata": "build.123"}'
+        >>> Version.from_json(v)
+        Version(major=1, minor=2, patch=4, prerelease='rc.1', buildmetadata='build.123')
+        ```
+        """
+        data: VersionDict = json.loads(json_string)
+        return Version(**data)
