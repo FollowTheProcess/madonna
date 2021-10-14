@@ -538,3 +538,34 @@ def test_version_from_string_raises_on_bad_string():
 @pytest.mark.parametrize("string", ["v1.2.4", "v1.2.4-rc.1", "v1.2.4-rc.1+build.123"])
 def test_version_from_string_to_string_round_trip(string: str):
     assert Version.from_string(string).to_string() == string
+
+
+@pytest.mark.parametrize(
+    "tup, want",
+    [
+        ((1, 2, 4), Version(1, 2, 4)),
+        ((1, 2, 4, "rc.1"), Version(1, 2, 4, "rc.1")),
+        ((1, 2, 4, "rc.1", "build.123"), Version(1, 2, 4, "rc.1", "build.123")),
+    ],
+)
+def test_version_from_tuple(tup: VersionTuple, want: Version):
+    assert Version.from_tuple(tup) == want
+
+
+@pytest.mark.parametrize(
+    "json_string, want",
+    [
+        ('{"major": 1, "minor": 2, "patch": 4}', Version(1, 2, 4)),
+        (
+            '{"major": 1, "minor": 2, "patch": 4, "prerelease": "rc.1"}',
+            Version(1, 2, 4, "rc.1"),
+        ),
+        (
+            '{"major": 1, "minor": 2, "patch": 4, "prerelease": "rc.1","buildmetadata":'
+            ' "build.2"}',
+            Version(1, 2, 4, "rc.1", "build.2"),
+        ),
+    ],
+)
+def test_version_from_json(json_string: str, want: Version):
+    assert Version.from_json(json_string) == want
