@@ -29,16 +29,19 @@ _SEMVER_REGEX = re.compile(
 )
 
 
-VersionDict = TypedDict(
-    "VersionDict",
-    {
-        "major": int,
-        "minor": int,
-        "patch": int,
-        "prerelease": Optional[str],
-        "buildmetadata": Optional[str],
-    },
-)
+class VersionDict(TypedDict):
+    """
+    Schema for the dictionary a `Version` object
+    expects to unpack
+    """
+
+    major: int
+    minor: int
+    patch: int
+    prerelease: Optional[str]
+    buildmetadata: Optional[str]
+
+
 VersionTuple = Tuple[int, int, int, Optional[str], Optional[str]]
 
 
@@ -94,7 +97,7 @@ class Version:
             ver += f"-{self.prerelease}"
 
         if self.buildmetadata:
-            ver += f"-{self.buildmetadata}"
+            ver += f"+{self.buildmetadata}"
 
         return ver
 
@@ -282,6 +285,31 @@ class Version:
             f"Could not compare {self.buildmetadata} and {other.buildmetadata}"
         )
 
+    def is_valid(self) -> bool:
+        """
+        Checks the `Version` against the official
+        semver regex pattern and reports whether or not it
+        is a valid semver.
+
+        Returns:
+            bool: True if `Version` is valid, else False
+
+        Examples:
+
+        ```python
+        >>> v = Version(1, 2, 4)
+        >>> v.is_valid()
+        True
+        ```
+
+        ```python
+        >>> v = Version(1, 2, 4, "blah198y_+-2-", "build---19790")
+        >>> v.is_valid()
+        False
+        ```
+        """
+        return bool(_SEMVER_REGEX.match(self.to_string()))
+
     def bump_major(self) -> Version:
         """
         Return a new `Version` with the major version
@@ -453,3 +481,55 @@ class Version:
         ```
         """
         return json.dumps(self.to_dict())
+
+    @classmethod
+    def from_dict(cls, version_dict: VersionDict) -> Version:
+        """
+        Construct and return a `Version` from a dictionary
+        of it's parts.
+
+        Expects a dictionary with keys: `major`, `minor`, `patch`,
+        `prerelease` and `buildmetadata`.
+
+        Args:
+            version_dict (VersionDict): Version as a dictionary of it's
+                parts.
+
+        Returns:
+            Version: Constructed Version.
+
+        Raises:
+            TypeError: If the passed dictionary does not
+                have keys matching the required parts.
+
+        Examples:
+
+        ```python
+        >>> v = {"major": 1, "minor": 2, "patch": 4}
+        >>> Version.from_dict(v)
+        Version(major=1, minor=2, patch=4, prerelease=None, buildmetadata=None)
+        ```
+
+        ```python
+        >>> v = {"major": 1, "minor": 2, "patch": 4, "prerelease": "rc.1", "buildmetadata": "build.123"}
+        >>> Version.from_dict(v)
+        Version(major=1, minor=2, patch=4, prerelease='rc.1', buildmetadata='build.123')
+        ```
+        """
+        return Version(**version_dict)
+
+    @classmethod
+    def from_string(cls, string: str) -> Version:
+        match = _SEMVER_REGEX.match(string)
+        if not match:
+            raise ValueError(f"{string!r} is not a valid semver string.")
+
+        return Version.from_dict(
+            VersionDict(
+                major=int(match.group("major")),
+                minor=int(match.group("minor")),
+                patch=int(match.group("patch")),
+                prerelease=match.group("prerelease"),
+                buildmetadata=match.group("buildmetadata"),
+            )
+        )

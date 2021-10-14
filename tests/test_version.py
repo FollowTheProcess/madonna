@@ -64,8 +64,8 @@ def test_version_less_than_zero_patch():
         (Version(1, 2, 4), "v1.2.4"),
         (Version(2, 6, 8, "rc.2", None), "v2.6.8-rc.2"),
         (Version(2, 6, 8, "rc.2"), "v2.6.8-rc.2"),
-        (Version(7, 6, 2, None, "build.123"), "v7.6.2-build.123"),
-        (Version(7, 2, 1, "rc.1", "build.123"), "v7.2.1-rc.1-build.123"),
+        (Version(7, 6, 2, None, "build.123"), "v7.6.2+build.123"),
+        (Version(7, 2, 1, "rc.1", "build.123"), "v7.2.1-rc.1+build.123"),
     ],
 )
 def test_version_str(version: Version, want: str):
@@ -385,8 +385,8 @@ def test_bump_patch(v: Version, want: Version):
         (Version(1, 2, 4), "v1.2.4"),
         (Version(2, 6, 8, "rc.2", None), "v2.6.8-rc.2"),
         (Version(2, 6, 8, "rc.2"), "v2.6.8-rc.2"),
-        (Version(7, 6, 2, None, "build.123"), "v7.6.2-build.123"),
-        (Version(7, 2, 1, "rc.1", "build.123"), "v7.2.1-rc.1-build.123"),
+        (Version(7, 6, 2, None, "build.123"), "v7.6.2+build.123"),
+        (Version(7, 2, 1, "rc.1", "build.123"), "v7.2.1-rc.1+build.123"),
     ],
 )
 def test_version_to_string(version: Version, want: str):
@@ -461,3 +461,80 @@ def test_version_to_dict(version: Version, want: VersionDict):
 )
 def test_version_to_json(version: Version, want: str):
     assert version.to_json() == want
+
+
+@pytest.mark.parametrize(
+    "version, want",
+    [
+        (Version(1, 2, 4), True),
+        (Version(1, 2, 3, "pre"), True),
+        (Version(1, 2, 4, "pre", "build"), True),
+        (Version(8, 2, 3, "rc.1", "build.123"), True),
+        (Version(1, 0, 0, "alpha-a.b-c-somethinglong", "build.1-aef.1-its-okay"), True),
+        (Version(1, 2, 3, "ajbas---28", "lnq==2987"), False),
+        (Version(1, 2, 4, "blah198y_+-2-", "build---19790"), False),
+    ],
+)
+def test_version_is_valid(version: Version, want: bool):
+    assert version.is_valid() is want
+
+
+@pytest.mark.parametrize(
+    "d, want",
+    [
+        (
+            {
+                "major": 7,
+                "minor": 2,
+                "patch": 6,
+            },
+            Version(7, 2, 6),
+        ),
+        (
+            {
+                "major": 1,
+                "minor": 2,
+                "patch": 3,
+                "prerelease": "rc.1",
+            },
+            Version(1, 2, 3, "rc.1"),
+        ),
+        (
+            {
+                "major": 1,
+                "minor": 2,
+                "patch": 3,
+                "prerelease": "rc.1",
+                "buildmetadata": "build.123",
+            },
+            Version(1, 2, 3, "rc.1", "build.123"),
+        ),
+    ],
+)
+def test_version_from_dict(d: VersionDict, want: Version):
+    assert Version.from_dict(d) == want
+
+
+@pytest.mark.parametrize(
+    "string, want",
+    [
+        ("v1.2.3", Version(1, 2, 3)),
+        ("1.2.3", Version(1, 2, 3)),
+        ("v1.2.3-rc.1", Version(1, 2, 3, "rc.1")),
+        ("v1.2.3-rc.1+build.123", Version(1, 2, 3, "rc.1", "build.123")),
+    ],
+)
+def test_version_from_string(string: str, want: Version):
+    assert Version.from_string(string) == want
+
+
+def test_version_from_string_raises_on_bad_string():
+    bad = "i'm not a version"
+
+    with pytest.raises(ValueError):
+        Version.from_string(bad)
+
+
+@pytest.mark.parametrize("string", ["v1.2.4", "v1.2.4-rc.1", "v1.2.4-rc.1+build.123"])
+def test_version_from_string_to_string_round_trip(string: str):
+    assert Version.from_string(string).to_string() == string
