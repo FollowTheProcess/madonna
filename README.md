@@ -7,7 +7,7 @@
 [![CI](https://github.com/FollowTheProcess/madonna/workflows/CI/badge.svg)](https://github.com/FollowTheProcess/madonna/actions?query=workflow%3ACI)
 [![Coverage](https://github.com/FollowTheProcess/madonna/raw/main/docs/img/coverage.svg)](https://github.com/FollowTheProcess/madonna)
 
-Python semver parsing library.
+**A Python semver parsing library.**
 
 * Free software: MIT License
 
@@ -27,7 +27,40 @@ Also naming things on PyPI is hard so
 
 ## Installation
 
+```shell
+pip install madonna
+```
+
 ## Quickstart
+
+The only construct in madonna is the `Version` object, you can use it for all sorts of useful things...
+
+### Create a New Version
+
+```python
+from madonna import Version
+
+v = Version(major=1, minor=2, patch=4)
+```
+
+### Parse a Version from a string
+
+```python
+from madonna import Version
+
+Version.from_string("v1.2.4-rc.1+build.123")
+# Version(major=1, minor=2, patch=4, prerelease="rc.1", buildmetadata="build.123")
+```
+
+### Or JSON
+
+```python
+from madonna import Version
+
+Version.from_json('{"major": 1, "minor": 2, "patch": 4}')
+```
+
+And you can also dump a `Version` to a variety of formats too!
 
 ## Contributing
 
@@ -42,3 +75,4 @@ This package was created with [cookiecutter](https://github.com/cookiecutter/coo
 [cookiecutter]: https://github.com/cookiecutter/cookiecutter
 [FollowTheProcess/cookie_pypackage]: https://github.com/FollowTheProcess/cookie_pypackage
 [contributing guide]: https://FollowTheProcess.github.io/madonna/contributing/contributing.html
+[semver]: https://semver.org
