@@ -3,15 +3,13 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-
   test:
-
     name: Test
     runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
         python-version: ["3.7", "3.8", "3.9", "3.10"]
 
     steps:
@@ -32,7 +30,6 @@ jobs:
         run: nox --non-interactive --session "test-${{ matrix.python-version }}"
 
   lint:
-
     name: Lint
     runs-on: ubuntu-latest
 
@@ -54,7 +51,6 @@ jobs:
         run: nox --non-interactive --session "lint"
 
   docs:
-
     name: Docs
     runs-on: ubuntu-latest
 
@@ -76,7 +72,6 @@ jobs:
         run: nox --non-interactive --session "docs"
 
   publish-docs:
-
     name: Publish Docs
     runs-on: ubuntu-latest
 
@@ -109,7 +104,6 @@ jobs:
           mkdocs gh-deploy -v --clean --remote-name gh-token;
 
   release:
-  
     name: Release
     runs-on: ubuntu-latest
 
@@ -117,7 +111,7 @@ jobs:
 
     # Only release on new tag
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
-    
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -134,7 +128,7 @@ jobs:
 
       - name: Build sdist and wheel
         run: python3 -m build --sdist --wheel
-        
+
       - name: Publish Distribution to PyPI
         uses: pypa/gh-action-pypi-publish@master
         with:
@@ -151,4 +145,3 @@ jobs:
           prerelease: false
           files: |
             dist/*
-
