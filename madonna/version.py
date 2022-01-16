@@ -16,7 +16,7 @@ from typing import Optional, Tuple
 if sys.version_info >= (3, 8):  # pragma: no cover
     from typing import TypedDict
 else:
-    from typing_extensions import TypedDict
+    from typing_extensions import TypedDict  # pragma: no cover
 
 # See https://semver.org/#is-there-a-suggested-regular-expression-regex-to-check-a-semver-string
 # The only thing we've added is the optional v at the start
@@ -83,6 +83,8 @@ class Version:
             raise ValueError(
                 f"Version {self!r} is invalid. Parts cannot be less than 0."
             )
+
+    __slots__ = ("major", "minor", "patch", "prerelease", "buildmetadata")
 
     def __repr__(self) -> str:
         return (
@@ -186,6 +188,9 @@ class Version:
 
         return False
 
+    def __hash__(self) -> int:
+        return hash(self.to_tuple())
+
     def _compare_prerelease(self, other: Version) -> int:
         """
         Helper to try and compare the pre-release versions.
@@ -232,7 +237,9 @@ class Version:
                 return -1
 
         # If we get here, we couldn't parse the pre-release
-        raise ValueError(f"Could not compare {self.prerelease} and {other.prerelease}")
+        raise ValueError(
+            f"Could not compare {self.prerelease} and {other.prerelease}"
+        )  # pragma: no cover
 
     def _compare_build(self, other: Version) -> int:
         """
@@ -284,7 +291,7 @@ class Version:
         # If we get here, we couldn't parse the pre-release
         raise ValueError(
             f"Could not compare {self.buildmetadata} and {other.buildmetadata}"
-        )
+        )  # pragma: no cover
 
     def is_valid(self) -> bool:
         """
@@ -301,12 +308,14 @@ class Version:
         >>> v = Version(1, 2, 4)
         >>> v.is_valid()
         True
+
         ```
 
         ```python
         >>> v = Version(1, 2, 4, "blah198y_+-2-", "build---19790")
         >>> v.is_valid()
         False
+
         ```
         """
         return bool(_SEMVER_REGEX.match(self.to_string()))
@@ -325,12 +334,14 @@ class Version:
         >>> v1 = Version(1, 2, 4)
         >>> v1.bump_major()
         Version(major=2, minor=0, patch=0, prerelease=None, buildmetadata=None)
+
         ```
 
         ```python
         >>> v1 = Version(0, 7, 6, "rc.1", "build.123")
         >>> v1.bump_major()
         Version(major=1, minor=0, patch=0, prerelease=None, buildmetadata=None)
+
         ```
         """
         return Version(self.major + 1, 0, 0)
@@ -349,12 +360,14 @@ class Version:
         >>> v1 = Version(1, 2, 4)
         >>> v1.bump_minor()
         Version(major=1, minor=3, patch=0, prerelease=None, buildmetadata=None)
+
         ```
 
         ```python
         >>> v1 = Version(0, 7, 6, "rc.1", "build.123")
         >>> v1.bump_major()
-        Version(major=0, minor=8, patch=0, prerelease=None, buildmetadata=None)
+        Version(major=1, minor=0, patch=0, prerelease=None, buildmetadata=None)
+
         ```
         """
         return Version(self.major, self.minor + 1, 0)
@@ -373,12 +386,14 @@ class Version:
         >>> v1 = Version(1, 2, 4)
         >>> v1.bump_patch()
         Version(major=1, minor=2, patch=5, prerelease=None, buildmetadata=None)
+
         ```
 
         ```python
         >>> v1 = Version(0, 7, 6, "rc.1", "build.123")
         >>> v1.bump_major()
-        Version(major=0, minor=7, patch=7, prerelease=None, buildmetadata=None)
+        Version(major=1, minor=0, patch=0, prerelease=None, buildmetadata=None)
+
         ```
         """
         return Version(self.major, self.minor, self.patch + 1)
@@ -397,12 +412,14 @@ class Version:
         >>> v = Version(1, 2, 4)
         >>> v.to_string()
         'v1.2.4'
+
         ```
 
         ```python
         >>> v = Version(1, 2, 4, "rc.2", "build.6")
         >>> v.to_string()
         'v1.2.4-rc.2+build.6'
+
         ```
         """
         return str(self)
@@ -421,12 +438,14 @@ class Version:
         >>> v = Version(1, 2, 4)
         >>> v.to_tuple()
         (1, 2, 4, None, None)
+
         ```
 
         ```python
         >>> v = Version(1, 2, 4, "rc.2", "build.6")
         >>> v.to_tuple()
-        (1, 2, 4, "rc.2", "build.6")
+        (1, 2, 4, 'rc.2', 'build.6')
+
         ```
         """
         return (self.major, self.minor, self.patch, self.prerelease, self.buildmetadata)
@@ -444,12 +463,14 @@ class Version:
         >>> v = Version(1, 2, 4)
         >>> v.to_dict()
         {'major': 1, 'minor': 2, 'patch': 4, 'prerelease': None, 'buildmetadata': None}
+
         ```
 
         ```python
         >>> v = Version(1, 2, 4, "rc.1", "build.2")
         >>> v.to_dict()
         {'major': 1, 'minor': 2, 'patch': 4, 'prerelease': 'rc.1', 'buildmetadata': 'build.2'}
+
         ```
         """
         return {
@@ -473,12 +494,14 @@ class Version:
         >>> v = Version(1, 2, 4)
         >>> v.to_json()
         '{"major": 1, "minor": 2, "patch": 4, "prerelease": null, "buildmetadata": null}'
+
         ```
 
         ```python
         >>> v = Version(1, 2, 4, "rc.1", "build.2")
         >>> v.to_json()
         '{"major": 1, "minor": 2, "patch": 4, "prerelease": "rc.1", "buildmetadata": "build.2"}'
+
         ```
         """
         return json.dumps(self.to_dict())
@@ -509,12 +532,14 @@ class Version:
         >>> v = {"major": 1, "minor": 2, "patch": 4}
         >>> Version.from_dict(v)
         Version(major=1, minor=2, patch=4, prerelease=None, buildmetadata=None)
+
         ```
 
         ```python
         >>> v = {"major": 1, "minor": 2, "patch": 4, "prerelease": "rc.1", "buildmetadata": "build.123"}
         >>> Version.from_dict(v)
         Version(major=1, minor=2, patch=4, prerelease='rc.1', buildmetadata='build.123')
+
         ```
         """
         return Version(**version_dict)
@@ -540,11 +565,13 @@ class Version:
         ```python
         >>> Version.from_string("v1.2.4")
         Version(major=1, minor=2, patch=4, prerelease=None, buildmetadata=None)
+
         ```
 
         ```python
         >>> Version.from_string("v1.2.4-rc.1+build.123")
         Version(major=1, minor=2, patch=4, prerelease='rc.1', buildmetadata='build.123')
+
         ```
         """
         match = _SEMVER_REGEX.match(string)
@@ -580,12 +607,14 @@ class Version:
         >>> v = (1, 2, 4)
         >>> Version.from_tuple(v)
         Version(major=1, minor=2, patch=4, prerelease=None, buildmetadata=None)
+
         ```
 
         ```python
         >>> v = (1, 2, 4, "rc.1", "build.123")
         >>> Version.from_tuple(v)
         Version(major=1, minor=2, patch=4, prerelease='rc.1', buildmetadata='build.123')
+
         ```
         """
         return Version(*tup)
@@ -608,12 +637,14 @@ class Version:
         >>> v = '{"major": 1, "minor": 2, "patch": 4}'
         >>> Version.from_json(v)
         Version(major=1, minor=2, patch=4, prerelease=None, buildmetadata=None)
+
         ```
 
         ```python
         >>> v = '{"major": 1, "minor": 2, "patch": 4, "prerelease": "rc.1", "buildmetadata": "build.123"}'
         >>> Version.from_json(v)
         Version(major=1, minor=2, patch=4, prerelease='rc.1', buildmetadata='build.123')
+
         ```
         """
         data: VersionDict = json.loads(json_string)

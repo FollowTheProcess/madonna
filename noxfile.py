@@ -260,7 +260,9 @@ def test(session: nox.Session) -> None:
     # Tests require the package to be installed
     session.install(".[test]")
 
-    session.run("pytest", f"--cov={PROJECT_SRC}", f"{PROJECT_TESTS}")
+    session.run(
+        "pytest", "--doctest-modules", f"--cov={PROJECT_SRC}", f"{PROJECT_TESTS}"
+    )
     session.notify("coverage")
 
 
