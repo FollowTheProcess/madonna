@@ -30,6 +30,12 @@ def test_version_repr():
     assert repr(v) == want
 
 
+def test_version_hash():
+    v = Version(1, 2, 4, "rc.1", "build.123")
+    want = hash(v.to_tuple())
+    assert hash(v) == want
+
+
 def test_version_less_than_zero_major():
     """
     Initialising a version with any part < 0 should raise
