@@ -365,16 +365,19 @@ def doctest(session: nox.Session) -> None:
     session.run("pytest", "--doctest-modules", f"{PROJECT_SRC}")
 
 
-@nox.session(python=DEFAULT_PYTHON)
+@nox.session(python=PYTHON_VERSIONS)
 def coverage(session: nox.Session) -> None:
     """
     Test coverage analysis.
     """
-
     # Error out if user does not have poetry installed
     session_requires(session, "poetry")
 
-    requirements = get_session_requirements(session)
+    requirements = SESSION_REQUIREMENTS.get("coverage", [])
+    if not requirements:
+        session.error(
+            "Requirements for nox session: 'coverage', not found in noxfile.py."
+        )
 
     if not COVERAGE_BADGE.exists():
         COVERAGE_BADGE.parent.mkdir(parents=True)
@@ -384,7 +387,7 @@ def coverage(session: nox.Session) -> None:
     poetry_install(session, *requirements)
 
     session.run("coverage", "run", f"--source={PROJECT_SRC}", "-m", "ward")
-    session.run("coverage", "report", "--show-missing")
+    session.run("coverage", "report", "--show-missing", "--fail-under=100")
     session.run("coverage-badge", "-fo", f"{COVERAGE_BADGE}")
 
 
