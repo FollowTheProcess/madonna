@@ -3,9 +3,7 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-
   test:
-
     name: Test
     runs-on: ${{ matrix.os }}
 
@@ -29,11 +27,10 @@ jobs:
           python3 -m pip install poetry
           python3 -m pip install nox
 
-      - name: Run Tests and Coverage
-        run: nox --non-interactive --session "test-${{ matrix.python-version }}"
+      - name: Run Tests & Coverage
+        run: nox --non-interactive --sessions "test-${{ matrix.python-version }}" "doctest-${{ matrix.python-version}}" "coverage-${{ matrix.python-version }}"
 
   lint:
-
     name: Lint
     runs-on: ubuntu-latest
 
@@ -56,7 +53,6 @@ jobs:
         run: nox --non-interactive --session "lint"
 
   docs:
-
     name: Docs
     runs-on: ubuntu-latest
 
@@ -79,7 +75,6 @@ jobs:
         run: nox --non-interactive --session "docs"
 
   publish-docs:
-
     name: Publish Docs
     runs-on: ubuntu-latest
 
@@ -111,7 +106,6 @@ jobs:
           nox --non-interactive --session "deploy_docs"
 
   release:
-
     name: Release
     runs-on: ubuntu-latest
 
