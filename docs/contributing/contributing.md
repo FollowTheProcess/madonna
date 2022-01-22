@@ -1,6 +1,7 @@
-# Contributing to Madonna
+# Contributing to madonna
 
-I've tried to structure Madonna to make it nice and easy for people to contribute. Here's how to go about doing it! :smiley:
+I've tried to structure madonna to make it nice and easy for people to contribute. Here's how to go about doing it! :smiley:
+
 
 !!! note
 
@@ -8,15 +9,15 @@ I've tried to structure Madonna to make it nice and easy for people to contribut
 
 ## Developing
 
-If you want to fix a bug, improve the docs, add tests, add a feature or any other type of direct contribution to Madonna: here's how you do it!
+If you want to fix a bug, improve the docs, add tests, add a feature or any other type of direct contribution to madonna: here's how you do it!
 
-**To work on Madonna you'll need python >=3.7**
+**To work on madonna you'll need python >=3.8**
 
-### Step 1: Fork Madonna
+### Step 1: Fork madonna
 
-The first thing to do is 'fork' Madonna. This will put a version of it on your GitHub page. This means you can change that fork all you want and the actual version of Madonna still works!
+The first thing to do is 'fork' madonna. This will put a version of it on your GitHub page. This means you can change that fork all you want and the actual version of madonna still works!
 
-To create a fork, go to the Madonna [repo] and click on the fork button!
+To create a fork, go to the madonna [repo] and click on the fork button!
 
 ### Step 2: Clone your fork
 
@@ -25,19 +26,19 @@ Navigate to where you do your development work on your machine and open a termin
 **If you use HTTPS:**
 
 ```shell
-git clone https://github.com/<your_github_username>/Madonna.git
+git clone https://github.com/<your_github_username>/madonna.git
 ```
 
 **If you use SSH:**
 
 ```shell
-git clone git@github.com:<your_github_username>/Madonna.git
+git clone git@github.com:<your_github_username>/madonna.git
 ```
 
 **Or you can be really fancy and use the [GH CLI]**
 
 ```shell
-gh repo clone <your_github_username>/Madonna
+gh repo clone <your_github_username>/madonna
 ```
 
 HTTPS is probably the one most people use!
@@ -45,18 +46,18 @@ HTTPS is probably the one most people use!
 Once you've cloned the project, cd into it...
 
 ```shell
-cd Madonna
+cd madonna
 ```
 
 This will take you into the root directory of the project.
 
-Now add the original Madonna repo as an upstream in your forked project:
+Now add the original madonna repo as an upstream in your forked project:
 
 ```shell
-git remote add upstream https://github.com/FollowTheProcess/Madonna.git
+git remote add upstream https://github.com/FollowTheProcess/madonna.git
 ```
 
-This makes the original version of Madonna 'upstream' but not 'origin'. Basically, this means that if your working on it for a while and the original project has changed in the meantime, you can do:
+This makes the original version of madonna `upstream` but not `origin`. Basically, this means that if your working on it for a while and the original project has changed in the meantime, you can do:
 
 ```shell
 git checkout main
@@ -72,15 +73,19 @@ This will (in order):
 * Merge those changes in with what you have
 * Push those changes up to your fork so your fork stays up to date with the original.
 
-*Good practice is to do this before you start doing anything every time you start work, then the chances of you getting conflicting commits later on is much lower!*
+!!! note
+
+    Good practice is to do this before you start doing anything every time you start work, then the chances of you getting conflicting commits later on is much lower!
 
 ### Step 3: Create the Environment
 
-Before you do anything, you'll want to set up your virtual environment...
+Before you do anything, you'll want to set up your development environment...
 
-The good news is we use [nox] to automate the crap out of this!
+madonna uses [poetry] to manage development and [nox] for automation superpowers. So to work on it you'll need to get both of those tools too!
 
-All you need to do is install nox (We recommend [pipx] to keep it isolated) and then run...
+I recommend using [pipx] for python command line tools like these, it installs each tool in it's own isolated environment but exposes the command to your terminal as if you installed it globally.
+
+We've automated the crap out of the development process for madonna, to get started all you need to do is run:
 
 ```shell
 nox
@@ -100,7 +105,7 @@ When you run this, nox will:
 
 Not bad for a single command! Doing it this way means that before you start working on madonna you know its all been installed and works correctly.
 
-Wait for it to do it's thing and then you can get started!
+Wait for it to do it's thing and then you can get started.
 
 !!! note
 
@@ -116,9 +121,9 @@ git checkout -b <name-of-your-bugfix-or-feature>
 
 Now you're ready to start working!
 
-*Remember! Madonna aims for high test coverage. If you implement a new feature, make sure to write tests for it! Similarly, if you fix a bug, it's good practice to write a test that would have caught that bug so we can be sure it doesn't reappear in the future!*
+*Remember! madonna aims for high test coverage. If you implement a new feature, make sure to write tests for it! Similarly, if you fix a bug, it's good practice to write a test that would have caught that bug so we can be sure it doesn't reappear in the future!*
 
-Madonna uses [nox] for automated testing, building the docs, formatting and linting etc. So when you've made your changes, just run:
+madonna uses [nox] for automated testing, building the docs, formatting and linting etc. So when you've made your changes, just run:
 
 ```shell
 nox
@@ -162,17 +167,17 @@ git push origin <your-branch-name>
 
 ### Step 6: Create a Pull Request
 
-Now go to the original Madonna [repo] and create a Pull Request. Make sure to choose upstream repo "main" as the destination branch and your forked repo "your-branch-name" as the source.
+Now go to the original madonna [repo] and create a Pull Request. Make sure to choose upstream repo "main" as the destination branch and your forked repo "your-branch-name" as the source.
 
-Thats it! Your code will be tested automatically by Madonna's CI suite and if everything passes and your PR is approved and merged then it will become part of Madonna!
+That's it! Your code will be tested automatically by madonna's CI suite and if everything passes and your PR is approved and merged then it will become part of madonna!
 
 *Note: There is a good guide to open source contribution workflow [here] and also [here too]*
 
 ## Contributing to Docs
 
-Any improvements to the documentation are always appreciated! Madonna uses [mkdocs] with the [mkdocs-material] theme so the documentation is all written in markdown and can be found in the `docs` folder in the project root.
+Any improvements to the documentation are always appreciated! madonna uses [mkdocs] with the [mkdocs-material] theme so the documentation is all written in markdown and can be found in the `docs` folder in the project root.
 
-Because Madonna uses [nox], things like building and serving the documentation is super easy. All you have to do is:
+Because madonna uses [nox], things like building and serving the documentation is super easy. All you have to do is:
 
 ```shell
 # Builds the docs
@@ -188,9 +193,11 @@ If you add pages to the docs, make sure they are placed in the nav tree in the `
 
 [GH CLI]: https://cli.github.com
 [nox]: https://nox.thea.codes/en/stable/
-[repo]: https://github.com/FollowTheProcess/Madonna
+[repo]: https://github.com/FollowTheProcess/madonna
 [here]: https://stackoverflow.com/questions/20956154/whats-the-workflow-to-contribute-to-an-open-source-project-using-git-pull-reque
 [here too]: https://github.com/asmeurer/git-workflow
 [mkdocs]: https://www.mkdocs.org
 [mkdocs-material]: https://squidfunk.github.io/mkdocs-material/
+[doit]: https://pydoit.org.
 [pipx]: https://pypa.github.io/pipx/installation/
+[poetry]: https://python-poetry.org

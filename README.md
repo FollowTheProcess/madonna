@@ -21,9 +21,7 @@ Madonna is a small, simple [semver] utility library with support for parsing, wr
 
 Get it? "Like a Version"... 👏🏻
 
-Also naming things on PyPI is hard so
-
-⚠️ Unlike the successful artist, this madonna is in early development
+Also naming things on PyPI is hard!
 
 ## Installation
 

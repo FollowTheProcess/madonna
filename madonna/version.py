@@ -12,7 +12,7 @@ import re
 import sys
 from typing import Optional, Tuple
 
-# Compatability with python 3.7
+# Compatibility with python 3.7
 if sys.version_info >= (3, 8):  # pragma: no cover
     from typing import TypedDict
 else:
@@ -39,8 +39,8 @@ class VersionDict(TypedDict):
     major: int
     minor: int
     patch: int
-    prerelease: Optional[str]
-    buildmetadata: Optional[str]
+    prerelease: str | None
+    buildmetadata: str | None
 
 
 VersionTuple = Tuple[int, int, int, Optional[str], Optional[str]]
@@ -52,8 +52,8 @@ class Version:
         major: int,
         minor: int,
         patch: int,
-        prerelease: Optional[str] = None,
-        buildmetadata: Optional[str] = None,
+        prerelease: str | None = None,
+        buildmetadata: str | None = None,
     ) -> None:
         """
         A data container for a semantic version.

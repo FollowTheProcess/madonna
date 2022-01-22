@@ -105,7 +105,7 @@ def test_version_eq_invalid_type():
     v = Version(1, 2, 4)
 
     with pytest.raises(TypeError):
-        v == "a string"
+        assert v == "a string"
 
 
 @pytest.mark.parametrize(
@@ -160,7 +160,7 @@ def test_version_lt_invalid_type():
     v = Version(1, 2, 4)
 
     with pytest.raises(TypeError):
-        v < "a string"
+        assert v < "a string"
 
 
 @pytest.mark.parametrize(
@@ -193,7 +193,7 @@ def test_version_le_invalid_type():
     v = Version(1, 2, 4)
 
     with pytest.raises(TypeError):
-        v <= "a string"
+        assert v <= "a string"
 
 
 @pytest.mark.parametrize(
@@ -225,7 +225,7 @@ def test_version_gt_invalid_type():
     v = Version(1, 2, 4)
 
     with pytest.raises(TypeError):
-        v > "a string"
+        assert v > "a string"
 
 
 @pytest.mark.parametrize(
@@ -258,7 +258,7 @@ def test_version_ge_invalid_type():
     v = Version(1, 2, 4)
 
     with pytest.raises(TypeError):
-        v >= "a string"
+        assert v >= "a string"
 
 
 @pytest.mark.parametrize(
