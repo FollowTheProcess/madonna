@@ -302,7 +302,7 @@ def dev(session: nox.Session) -> None:
     # Here we use the absolute path to the poetry venv's python interpreter
     session.run(PYTHON, "-m", "pip", "install", "--upgrade", *SEEDS, silent=True)
 
-    if bool(shutil.which("code")):
+    if bool(shutil.which("code")) or bool(shutil.which("code-insiders")):
         # Only do this is user has VSCode installed
         set_up_vscode(session)
 
