@@ -49,7 +49,7 @@ coverage-badge = "1.1.0"
 coverage = { extras = ["toml"], version = "6.3.2" }
 mypy = "0.941"
 mkdocs = "1.2.3"
-mkdocs-material = "8.2.5"
+mkdocs-material = "8.2.6"
 mkdocstrings = "0.18.1"
 pre-commit = "2.17.0"
 ward = "0.65.0-beta.0"
