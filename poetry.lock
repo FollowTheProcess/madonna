@@ -546,7 +546,7 @@ python-versions = "*"
 
 [[package]]
 name = "pre-commit"
-version = "2.19.0"
+version = "2.20.0"
 description = "A framework for managing and maintaining multi-language pre-commit hooks."
 category = "dev"
 optional = false
@@ -797,7 +797,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "d0ffb82fdcbfb7fd37a844ee0aa8231e70cce2efe5282dd581a6d2a5f3062b24"
+content-hash = "45a789ba429e65b86bed9766a9617f16059e3432a0dd3ff153d0ed69b9ecd182"
 
 [metadata.files]
 argcomplete = []
