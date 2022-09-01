@@ -429,13 +429,17 @@ for version, want in [
 for version, want in [
     (
         Version(1, 2, 4),
-        '{"major": 1, "minor": 2, "patch": 4, "prerelease": null, "buildmetadata":'
-        " null}",
+        (
+            '{"major": 1, "minor": 2, "patch": 4, "prerelease": null, "buildmetadata":'
+            " null}"
+        ),
     ),
     (
         Version(1, 2, 4, "rc.1", "build.2"),
-        '{"major": 1, "minor": 2, "patch": 4, "prerelease": "rc.1",'
-        ' "buildmetadata": "build.2"}',
+        (
+            '{"major": 1, "minor": 2, "patch": 4, "prerelease": "rc.1",'
+            ' "buildmetadata": "build.2"}'
+        ),
     ),
 ]:
 
@@ -537,8 +541,10 @@ for json_string, want in [
         Version(1, 2, 4, "rc.1"),
     ),
     (
-        '{"major": 1, "minor": 2, "patch": 4, "prerelease": "rc.1","buildmetadata":'
-        ' "build.2"}',
+        (
+            '{"major": 1, "minor": 2, "patch": 4, "prerelease": "rc.1","buildmetadata":'
+            ' "build.2"}'
+        ),
         Version(1, 2, 4, "rc.1", "build.2"),
     ),
 ]:
