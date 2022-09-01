@@ -78,10 +78,12 @@ SESSION_REQUIREMENTS: Dict[str, List[str]] = {
         "mkdocs",
         "mkdocs-material",
         "mkdocstrings",
+        "mkdocstrings-python",
     ],
     "coverage": [
         "ward",
-        "coverage[toml]",
+        "coverage",
+        "toml",
         "coverage-badge",
     ],
 }
