@@ -38,20 +38,20 @@ Documentation = "https://FollowTheProcess.github.io/madonna/"
 python = "^3.8"
 
 [tool.poetry.dev-dependencies]
-pytest = "7.1.2"
+pytest = "7.1.3"
 bump2version = "1.0.1"
 flake8 = "5.0.4"
-flake8-bugbear = "22.8.23"
+flake8-bugbear = "22.9.23"
 isort = "5.10.1"
 nox = "2022.8.7"
-black = "22.8.0"
+black = "22.10.0"
 coverage-badge = "1.1.0"
-coverage = "6.4.4"
+coverage = "6.5.0"
 toml = "0.10.2"
-mypy = "0.971"
-mkdocs = "1.3.1"
-mkdocs-material = "8.4.2"
-mkdocstrings = "0.18.1"
+mypy = "0.982"
+mkdocs = "1.4.0"
+mkdocs-material = "8.5.6"
+mkdocstrings = "0.19.0"
 mkdocstrings-python = "0.7.1"
 pre-commit = "2.20.0"
 ward = "0.66.1b0"
@@ -59,7 +59,6 @@ ward = "0.66.1b0"
 
 [tool.isort]
 profile = "black"
-multi_line_output = 3
 
 [tool.coverage.run]
 omit = [ "*__init__.py" ]
