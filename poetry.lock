@@ -418,7 +418,7 @@ mkdocs = ">=1.1"
 
 [[package]]
 name = "mkdocs-material"
-version = "9.0.0"
+version = "9.0.1"
 description = "Documentation that simply works"
 category = "dev"
 optional = false
@@ -430,7 +430,6 @@ jinja2 = ">=3.0"
 markdown = ">=3.2"
 mkdocs = ">=1.4.2"
 mkdocs-material-extensions = ">=1.1"
-pipdeptree = ">=2.3"
 pygments = ">=2.14"
 pymdown-extensions = ">=9.9"
 regex = ">=2022.4.24"
@@ -547,18 +546,6 @@ description = "Utility library for gitignore style pattern matching of file path
 category = "dev"
 optional = false
 python-versions = ">=3.7"
-
-[[package]]
-name = "pipdeptree"
-version = "2.3.3"
-description = "Command line utility to show dependency tree of packages."
-category = "dev"
-optional = false
-python-versions = ">=3.7"
-
-[package.extras]
-graphviz = ["graphviz (>=0.20.1)"]
-test = ["covdefaults (>=2.2)", "diff-cover (>=7.0.1)", "pip (>=22.3)", "pytest (>=7.2)", "pytest-cov (>=4)", "pytest-mock (>=3.10)", "virtualenv (>=20.16.6,<21)"]
 
 [[package]]
 name = "platformdirs"
@@ -864,7 +851,7 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "f8efea0f1a4c3c1dd0c8b153eebf931796ac9aea6cdfb34770574d48aab86086"
+content-hash = "ac1269f1f7cfcee6bfae14daebfbdaaf78fd4cc81fb2e54967ec3f2cad6116cc"
 
 [metadata.files]
 argcomplete = [
@@ -1102,8 +1089,8 @@ mkdocs-autorefs = [
     {file = "mkdocs_autorefs-0.4.1-py3-none-any.whl", hash = "sha256:a2248a9501b29dc0cc8ba4c09f4f47ff121945f6ce33d760f145d6f89d313f5b"},
 ]
 mkdocs-material = [
-    {file = "mkdocs_material-9.0.0-py3-none-any.whl", hash = "sha256:2caf92a0aab3123ff505466578ded45ee3f14125128c68fe800254c4a4044310"},
-    {file = "mkdocs_material-9.0.0.tar.gz", hash = "sha256:d523c1d5d01cc8cf2aac78ba6393958501f3d2f060a9afb7cbd15337e77c21c3"},
+    {file = "mkdocs_material-9.0.1-py3-none-any.whl", hash = "sha256:5f838dffa46796575932ae2083cd1373e27c6d87254e090cea573a7d393e3f04"},
+    {file = "mkdocs_material-9.0.1.tar.gz", hash = "sha256:c0e2df04adeac45b8051160d042624c44429c4dd3efc8baaa9ddb2cd1309afb0"},
 ]
 mkdocs-material-extensions = [
     {file = "mkdocs_material_extensions-1.1.1-py3-none-any.whl", hash = "sha256:e41d9f38e4798b6617ad98ca8f7f1157b1e4385ac1459ca1e4ea219b556df945"},
@@ -1168,10 +1155,6 @@ packaging = [
 pathspec = [
     {file = "pathspec-0.10.3-py3-none-any.whl", hash = "sha256:3c95343af8b756205e2aba76e843ba9520a24dd84f68c22b9f93251507509dd6"},
     {file = "pathspec-0.10.3.tar.gz", hash = "sha256:56200de4077d9d0791465aa9095a01d421861e405b5096955051deefd697d6f6"},
-]
-pipdeptree = [
-    {file = "pipdeptree-2.3.3-py3-none-any.whl", hash = "sha256:8c012fd8ee79083806db9d1410a44648f71dba11364719aa40ed718f4762e964"},
-    {file = "pipdeptree-2.3.3.tar.gz", hash = "sha256:9d666f77ff1b9528d01b3d98594096484f56de70d752abe22f13e681be239bd8"},
 ]
 platformdirs = [
     {file = "platformdirs-2.6.2-py3-none-any.whl", hash = "sha256:83c8f6d04389165de7c9b6f0c682439697887bca0aa2f1c87ef1826be3584490"},
