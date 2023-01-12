@@ -654,14 +654,14 @@ mkdocs = ">=1.1"
 
 [[package]]
 name = "mkdocs-material"
-version = "9.0.3"
+version = "9.0.4"
 description = "Documentation that simply works"
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "mkdocs_material-9.0.3-py3-none-any.whl", hash = "sha256:cedbbf84e156370489907d3c5b79999fcf6563f61a96965ec4c2513d303fa706"},
-    {file = "mkdocs_material-9.0.3.tar.gz", hash = "sha256:918fe38f504ca397b388b6c45445c22cb9acab61f00ade78d5f3edf299b6c9df"},
+    {file = "mkdocs_material-9.0.4-py3-none-any.whl", hash = "sha256:f5f94f5daa0e07deb2f192453f9812c66c4bc0cd48078c60bdde32af137f7357"},
+    {file = "mkdocs_material-9.0.4.tar.gz", hash = "sha256:4f429b4e50242544020f0fc21b9e10062418d3cd1e591c040c4c155506250a66"},
 ]
 
 [package.dependencies]
@@ -671,7 +671,7 @@ markdown = ">=3.2"
 mkdocs = ">=1.4.2"
 mkdocs-material-extensions = ">=1.1"
 pygments = ">=2.14"
-pymdown-extensions = ">=9.9"
+pymdown-extensions = ">=9.9.1"
 regex = ">=2022.4.24"
 requests = ">=2.26"
 
@@ -955,14 +955,14 @@ plugins = ["importlib-metadata"]
 
 [[package]]
 name = "pymdown-extensions"
-version = "9.9"
+version = "9.9.1"
 description = "Extension pack for Python Markdown."
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "pymdown_extensions-9.9-py3-none-any.whl", hash = "sha256:ac698c15265680db5eb13cd4342abfcde2079ac01e5486028f47a1b41547b859"},
-    {file = "pymdown_extensions-9.9.tar.gz", hash = "sha256:0f8fb7b74a37a61cc34e90b2c91865458b713ec774894ffad64353a5fce85cfc"},
+    {file = "pymdown_extensions-9.9.1-py3-none-any.whl", hash = "sha256:8a8973933ab45b6fe8f5f8da1de25766356b1f91dee107bf4a34efd158dc340b"},
+    {file = "pymdown_extensions-9.9.1.tar.gz", hash = "sha256:abed29926960bbb3b40f5ed5fa6375e29724d4e3cb86ced7c2bbd37ead1afeea"},
 ]
 
 [package.dependencies]
@@ -1409,4 +1409,4 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "c57b0462a58089d97337ed971983f8dcb021af8eee62779f3ee30f06d0ce9664"
+content-hash = "41576bca00f43e7d520e0f0758611a0a26271e194177327b43a6bf982a554100"
