@@ -1422,14 +1422,14 @@ testing = ["coverage (>=6.2)", "coverage-enable-subprocess (>=1)", "flaky (>=3.7
 
 [[package]]
 name = "ward"
-version = "0.67.0b0"
+version = "0.67.2b0"
 description = "A modern Python testing framework"
 category = "dev"
 optional = false
 python-versions = ">=3.7.8,<4.0.0"
 files = [
-    {file = "ward-0.67.0b0-py3-none-any.whl", hash = "sha256:865c1559c99a89fa74a783fc04585c65811fb97fd912996e1cc34f0391216c23"},
-    {file = "ward-0.67.0b0.tar.gz", hash = "sha256:24024a1c41f67ad1cd0310c7f29dafbe387cd8f49777fe12262c5ad66c4ed779"},
+    {file = "ward-0.67.2b0-py3-none-any.whl", hash = "sha256:fe351f5ae2fbbf8132af6260bdea8245dcef026943cb2084faaa48e6a1017c4e"},
+    {file = "ward-0.67.2b0.tar.gz", hash = "sha256:11bf0128e4696bfd1ca9a2b457c817378c4479a33fa45d0e3aabf7b301744f47"},
 ]
 
 [package.dependencies]
@@ -1439,7 +1439,7 @@ click-default-group = ">=1.2.2,<2.0.0"
 cucumber-tag-expressions = ">=2.0.0,<5.0.0"
 pluggy = ">=0.13.1,<2.0.0"
 pprintpp = ">=0.4.0,<0.5.0"
-rich = ">=12.2.0,<13.0.0"
+rich = ">=12.2.0"
 tomli = ">=1.0.0,<3.0.0"
 
 [[package]]
@@ -1502,4 +1502,4 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "82bbe51fd2c928f89120f7e3d7d2985bec2148f8173c5ade2f71ebee202be93f"
+content-hash = "77605ddb1acf620114fef0590cea60ca6d687ca7a1a03bce1b06fb3cf8f4b871"
