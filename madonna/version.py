@@ -24,7 +24,7 @@ _SEMVER_REGEX = re.compile(
     r"""^v?(?P<major>0|[1-9]\d*)\. # Major
     (?P<minor>0|[1-9]\d*)\. # Minor
     (?P<patch>0|[1-9]\d*) # Patch
-    (?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))? # Optional pre-release # noqa: E501
+    (?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?
     (?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$""",  # Optional build metadata
     flags=re.VERBOSE,
 )
@@ -43,7 +43,7 @@ class VersionDict(TypedDict):
     buildmetadata: str | None
 
 
-VersionTuple = Tuple[int, int, int, Optional[str], Optional[str]]
+VersionTuple = Tuple[int, int, int, Optional[str], Optional[str]]  # noqa: UP006
 
 
 class Version:
@@ -206,7 +206,7 @@ class Version:
         if self.prerelease == other.prerelease:
             # The pre release strings are equal
             return 0
-        elif self.prerelease and not other.prerelease:
+        elif self.prerelease and not other.prerelease:  # noqa: RET505
             # Ours has a pre-release but the other doesn't
             # meaning ours is less
             return -1
@@ -256,7 +256,7 @@ class Version:
         if self.buildmetadata == other.buildmetadata:
             # The pre release strings are equal
             return 0
-        elif self.buildmetadata and not other.buildmetadata:
+        elif self.buildmetadata and not other.buildmetadata:  # noqa: RET505
             # Ours has a pre-release but the other doesn't
             # meaning ours is less
             return -1

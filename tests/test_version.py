@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from ward import raises, test
 
 from madonna import Version
@@ -5,7 +7,7 @@ from madonna.version import VersionDict, VersionTuple
 
 
 @test("version instantiation")
-def _():
+def _() -> None:
     v = Version(1, 2, 4, "rc.1", "build.123")
     assert v.major == 1
     assert v.minor == 2
@@ -15,7 +17,7 @@ def _():
 
 
 @test("version repr is correct")
-def _():
+def _() -> None:
     v = Version(1, 2, 4, "rc.1", "build.123")
     want = (
         "Version(major=1, minor=2, patch=4, prerelease='rc.1',"
@@ -25,7 +27,7 @@ def _():
 
 
 @test("version hash is correct")
-def _():
+def _() -> None:
     v = Version(1, 2, 4, "rc.1", "build.123")
     want = hash(v.to_tuple())
     assert hash(v) == want
@@ -38,7 +40,7 @@ for major, minor, patch in [
 ]:
 
     @test("version raises if any numeric part < 0")
-    def _(major: int = major, minor: int = minor, patch: int = patch):
+    def _(major: int = major, minor: int = minor, patch: int = patch) -> None:
         with raises(ValueError):
             Version(major, minor, patch)
 
@@ -53,7 +55,7 @@ for version, string in [
 ]:
 
     @test("version string representation is correct")
-    def _(version: Version = version, string: str = string):
+    def _(version: Version = version, string: str = string) -> None:
         assert str(version) == string
 
 
@@ -75,12 +77,12 @@ for v1, v2, want in [
 ]:
 
     @test("version __eq__ is correct")
-    def _(v1: Version = v1, v2: Version = v2, want: bool = want):
+    def _(v1: Version = v1, v2: Version = v2, want: bool = want) -> None:
         assert (v1 == v2) is want
 
 
 @test("version __eq__ returns NotImplemented on anything other than a Version")
-def _():
+def _() -> None:
     v = Version(1, 2, 4)
 
     with raises(TypeError):
@@ -105,7 +107,7 @@ for v1, v2, want in [
 ]:
 
     @test("version __ne__ is correct")
-    def _(v1: Version = v1, v2: Version = v2, want: bool = want):
+    def _(v1: Version = v1, v2: Version = v2, want: bool = want) -> None:
         assert (v1 != v2) == want
 
 
@@ -129,12 +131,12 @@ for v1, v2, want in [
 ]:
 
     @test("version __lt__ is correct")
-    def _(v1: Version = v1, v2: Version = v2, want: bool = want):
+    def _(v1: Version = v1, v2: Version = v2, want: bool = want) -> None:
         assert (v1 < v2) is want
 
 
 @test("version __lt__ raises on anything other than a Version")
-def _():
+def _() -> None:
     v = Version(1, 2, 4)
 
     with raises(TypeError):
@@ -162,12 +164,12 @@ for v1, v2, want in [
 ]:
 
     @test("version __le__ is correct")
-    def _(v1: Version = v1, v2: Version = v2, want: bool = want):
+    def _(v1: Version = v1, v2: Version = v2, want: bool = want) -> None:
         assert (v1 <= v2) is want
 
 
 @test("version __lt__ raises on anything other than a Version")
-def _():
+def _() -> None:
     v = Version(1, 2, 4)
 
     with raises(TypeError):
@@ -194,12 +196,12 @@ for v1, v2, want in [
 ]:
 
     @test("version __gt__ is correct")
-    def _(v1: Version = v1, v2: Version = v2, want: bool = want):
+    def _(v1: Version = v1, v2: Version = v2, want: bool = want) -> None:
         assert (v1 > v2) is want
 
 
 @test("version __gt__ raises on anything other than a Version")
-def _():
+def _() -> None:
     v = Version(1, 2, 4)
 
     with raises(TypeError):
@@ -227,12 +229,12 @@ for v1, v2, want in [
 ]:
 
     @test("version __ge__ is correct")
-    def _(v1: Version = v1, v2: Version = v2, want: bool = want):
+    def _(v1: Version = v1, v2: Version = v2, want: bool = want) -> None:
         assert (v1 >= v2) is want
 
 
 @test("version __ge__ raises on anything other than a Version")
-def _():
+def _() -> None:
     v = Version(1, 2, 4)
 
     with raises(TypeError):
@@ -249,12 +251,12 @@ for v1, v2, want in [
 ]:
 
     @test("compare prerelease is correct")
-    def _(v1: Version = v1, v2: Version = v2, want: int = want):
+    def _(v1: Version = v1, v2: Version = v2, want: int = want) -> None:
         assert v1._compare_prerelease(v2) == want
 
 
 @test("compare prerelease raises if it can't find numeric digits")
-def _():
+def _() -> None:
     v1 = Version(1, 0, 0, "pre")
     v2 = Version(1, 0, 0, "prepre")
 
@@ -263,7 +265,7 @@ def _():
 
 
 @test("compare prerelease raises if there are multiple digits")
-def _():
+def _() -> None:
     v1 = Version(1, 0, 0, "pre3")
     v2 = Version(1, 0, 0, "pre3version4")
 
@@ -272,7 +274,7 @@ def _():
 
 
 @test("compare prerelease raises if all checks were inconclusive")
-def _():
+def _() -> None:
     v1 = Version(1, 0, 0, "cantcompareme")
     v2 = Version(1, 0, 0, "orme")
 
@@ -290,12 +292,12 @@ for v1, v2, want in [
 ]:
 
     @test("compare build is correct")
-    def _(v1: Version = v1, v2: Version = v2, want: int = want):
+    def _(v1: Version = v1, v2: Version = v2, want: int = want) -> None:
         assert v1._compare_build(v2) == want
 
 
 @test("compare prerelease raises if it can't find numeric digits")
-def _():
+def _() -> None:
     v1 = Version(1, 0, 0, None, "build")
     v2 = Version(1, 0, 0, None, "buildybuild")
 
@@ -304,7 +306,7 @@ def _():
 
 
 @test("compare build raises if there are multiple digits")
-def _():
+def _() -> None:
     v1 = Version(1, 0, 0, None, "build3")
     v2 = Version(1, 0, 0, None, "build1ver4")
 
@@ -313,7 +315,7 @@ def _():
 
 
 @test("compare build raises if all checks were inconclusive")
-def _():
+def _() -> None:
     v1 = Version(1, 0, 0, None, "cantcompareme")
     v2 = Version(1, 0, 0, None, "orme")
 
@@ -331,7 +333,7 @@ for original, bumped in [
 ]:
 
     @test("bump_major is correct")
-    def _(original: Version = original, bumped: Version = bumped):
+    def _(original: Version = original, bumped: Version = bumped) -> None:
         assert original.bump_major() == bumped
 
 
@@ -345,7 +347,7 @@ for original, bumped in [
 ]:
 
     @test("bump_minor is correct")
-    def _(original: Version = original, bumped: Version = bumped):
+    def _(original: Version = original, bumped: Version = bumped) -> None:
         assert original.bump_minor() == bumped
 
 
@@ -359,7 +361,7 @@ for original, bumped in [
 ]:
 
     @test("bump_patch is correct")
-    def _(original: Version = original, bumped: Version = bumped):
+    def _(original: Version = original, bumped: Version = bumped) -> None:
         assert original.bump_patch() == bumped
 
 
@@ -373,7 +375,7 @@ for version, want in [
 ]:
 
     @test("version.to_string() is correct")
-    def _(version: Version = version, want: str = want):
+    def _(version: Version = version, want: str = want) -> None:
         assert version.to_string() == want
 
 
@@ -384,7 +386,7 @@ for version, want in [
 ]:
 
     @test("version.to_tuple() is correct")
-    def _(version: Version = version, want: VersionTuple = want):
+    def _(version: Version = version, want: VersionTuple = want) -> None:
         assert version.to_tuple() == want
 
 
@@ -422,7 +424,7 @@ for version, want in [
 ]:
 
     @test("version.to_dict() is correct")
-    def _(version: Version = version, want: VersionDict = want):
+    def _(version: Version = version, want: VersionDict = want) -> None:
         assert version.to_dict() == want
 
 
@@ -444,7 +446,7 @@ for version, want in [
 ]:
 
     @test("version.to_json() is correct")
-    def _(version: Version = version, want: str = want):
+    def _(version: Version = version, want: str = want) -> None:
         assert version.to_json() == want
 
 
@@ -459,7 +461,7 @@ for version, want in [
 ]:
 
     @test("version.is_valid() is correct")
-    def _(version: Version = version, want: bool = want):
+    def _(version: Version = version, want: bool = want) -> None:
         assert version.is_valid() is want
 
 
@@ -494,7 +496,7 @@ for d, want in [
 ]:
 
     @test("version.from_dict() is correct")
-    def _(d: VersionDict = d, want: Version = want):
+    def _(d: VersionDict = d, want: Version = want) -> None:
         assert Version.from_dict(d) == want
 
 
@@ -506,12 +508,12 @@ for string, want in [
 ]:
 
     @test("version.from_string() is correct")
-    def _(string: str = string, want: Version = want):
+    def _(string: str = string, want: Version = want) -> None:
         assert Version.from_string(string) == want
 
 
 @test("version.from_string() raises on an invalid semver string")
-def _():
+def _() -> None:
     with raises(ValueError):
         Version.from_string("I'm not a version")
 
@@ -519,7 +521,7 @@ def _():
 for string in ["v1.2.4", "v1.2.4-rc.1", "v1.2.4-rc.1+build.123"]:
 
     @test("version.to_string() -> version.from_string() round trip")
-    def _(string: str = string):
+    def _(string: str = string) -> None:
         assert Version.from_string(string).to_string() == string
 
 
@@ -530,7 +532,7 @@ for tup, want in [
 ]:
 
     @test("version.from_tuple() is correct")
-    def _(tup: VersionTuple = tup, want: Version = want):
+    def _(tup: VersionTuple = tup, want: Version = want) -> None:
         assert Version.from_tuple(tup) == want
 
 
@@ -550,5 +552,5 @@ for json_string, want in [
 ]:
 
     @test("version.from_json() is correct")
-    def _(json_string: str = json_string, want: Version = want):
+    def _(json_string: str = json_string, want: Version = want) -> None:
         assert Version.from_json(json_string) == want
