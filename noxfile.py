@@ -75,6 +75,7 @@ SESSION_REQUIREMENTS: dict[str, list[str]] = {
     ],
     "lint": [
         "pre-commit",
+        "mypy",
     ],
     "docs": [
         "mkdocs",
@@ -405,6 +406,7 @@ def lint(session: nox.Session) -> None:
     poetry_install(session, *requirements)
 
     session.run("pre-commit", "run", "--all-files")
+    session.run("mypy")
 
 
 @nox.session(python=DEFAULT_PYTHON)
