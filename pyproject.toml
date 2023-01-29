@@ -1,6 +1,8 @@
 [build-system]
-requires = [ "poetry-core>=1.0.0" ]
 build-backend = "poetry.core.masonry.api"
+requires = [
+  "poetry-core>=1",
+]
 
 [tool.poetry]
 name = "madonna"
@@ -13,20 +15,20 @@ readme = "README.md"
 repository = "https://github.com/FollowTheProcess/madonna"
 documentation = "https://FollowTheProcess.github.io/madonna/"
 classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
-    "Natural Language :: English",
-    "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Topic :: Software Development",
-    "Topic :: Software Development :: Libraries :: Python Modules",
-    "Topic :: Utilities",
-    "Typing :: Typed",
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Natural Language :: English",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Topic :: Software Development",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: Utilities",
+  "Typing :: Typed",
 ]
 keywords = [ "semver", "parser" ]
 include = [ "madonna/py.typed" ]
@@ -76,14 +78,36 @@ pretty = true
 module = [ "tests.*", "pytests.*" ]
 ignore_errors = true
 
-[tool.pycln]
-path = "/madonna"
-expand_stars = true
-all = true
-no_gitignore = false
+[tool.ruff]
+line-length = 120
+extend-select = [
+  # https://github.com/charliermarsh/ruff#supported-rules
+  "W",   # Pycodestyle warnings
+  "UP",  # All pyupgrade rules
+  "N",   # PEP8 naming
+  "C90", # Complexity
+  "C4",  # Flake8 comprehensions
+  "ERA", # Commented out code
+  "B",   # Flake8 bugbear
+  "RUF", # Ruff specific rules
+  "YTT", # Flake8 2020
+  "ANN", # Type annotations
+  "BLE", # No blind excepts
+  "PT",  # Pytest style
+  "RET", # Function returns
+  "SIM", # Simplify
+  "ARG", # Unused arguments
+  "PTH", # Use pathlib over os.path
+  "PGH", # Pygrep hooks
+]
+extend-ignore = [
+  "B905",   # zip() without strict=
+  "ANN101", # Missing type annotation for `self` in method
+  "ANN102", # Missing type annotation for `cls` in classmethod
+]
 
-[tool.bandit]
-skips = [ "B106" ]
+[tool.ruff.mccabe]
+max-complexity = 15
 
 [tool.ward]
 path = "tests"
