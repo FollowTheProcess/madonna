@@ -75,6 +75,7 @@ SESSION_REQUIREMENTS: dict[str, list[str]] = {
     ],
     "lint": [
         "pre-commit",
+        "mypy",
     ],
     "docs": [
         "mkdocs",
