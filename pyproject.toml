@@ -55,7 +55,7 @@ mkdocs = "1.4.2"
 mkdocs-material = "9.0.6"
 mkdocstrings = "0.20.0"
 mkdocstrings-python = "0.8.3"
-pre-commit = "3.0.1"
+pre-commit = "3.0.2"
 ward = "0.67.2b0"
 
 
