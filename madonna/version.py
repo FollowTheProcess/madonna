@@ -12,8 +12,8 @@ import re
 import sys
 from typing import Optional, Tuple
 
-# Compatibility with python 3.7
-if sys.version_info >= (3, 8):  # pragma: no cover
+# Compatibility with python 3.8
+if sys.version_info >= (3, 8):  # pragma: no cover # noqa: UP036
     from typing import TypedDict
 else:
     from typing_extensions import TypedDict  # pragma: no cover
@@ -43,7 +43,7 @@ class VersionDict(TypedDict):
     buildmetadata: str | None
 
 
-VersionTuple = Tuple[int, int, int, Optional[str], Optional[str]]  # noqa: UP006
+VersionTuple = Tuple[int, int, int, Optional[str], Optional[str]]  # noqa: UP006,UP007
 
 
 class Version:
