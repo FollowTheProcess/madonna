@@ -4,6 +4,21 @@ requires = [
   "poetry-core>=1",
 ]
 
+[tool.isort]
+profile = "black"
+
+[tool.coverage.run]
+omit = [ "*__init__.py" ]
+branch = true
+
+[tool.mypy]
+files = [ "madonna/**/*.py", "noxfile.py" ]
+
+ignore_missing_imports = true
+strict = true
+disallow_untyped_decorators = false
+pretty = true
+
 [tool.poetry]
 name = "madonna"
 version = "0.2.0"
@@ -57,26 +72,6 @@ mkdocstrings = "0.20.0"
 mkdocstrings-python = "0.8.3"
 pre-commit = "3.0.4"
 ward = "0.67.2b0"
-
-
-[tool.isort]
-profile = "black"
-
-[tool.coverage.run]
-omit = [ "*__init__.py" ]
-branch = true
-
-[tool.mypy]
-files = [ "madonna/**/*.py", "noxfile.py" ]
-
-ignore_missing_imports = true
-strict = true
-disallow_untyped_decorators = false
-pretty = true
-
-[[tool.mypy.overrides]]
-module = [ "tests.*", "pytests.*" ]
-ignore_errors = true
 
 [tool.ruff]
 line-length = 120
