@@ -70,7 +70,7 @@ mkdocs = "1.4.2"
 mkdocs-material = "9.0.13"
 mkdocstrings = "0.20.0"
 mkdocstrings-python = "0.8.3"
-pre-commit = "3.0.4"
+pre-commit = "3.1.0"
 ward = "0.67.2b0"
 
 [tool.ruff]
