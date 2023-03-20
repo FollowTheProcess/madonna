@@ -43,7 +43,7 @@ class VersionDict(TypedDict):
     buildmetadata: str | None
 
 
-VersionTuple = Tuple[int, int, int, Optional[str], Optional[str]]  # noqa: UP006,UP007
+VersionTuple = Tuple[int, int, int, Optional[str], Optional[str]]
 
 
 class Version:
