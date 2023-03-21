@@ -33,7 +33,7 @@ _SEMVER_REGEX = re.compile(
 class VersionDict(TypedDict):
     """
     Schema for the dictionary a `Version` object
-    expects to unpack
+    expects to unpack.
     """
 
     major: int
@@ -47,6 +47,10 @@ VersionTuple = Tuple[int, int, int, Optional[str], Optional[str]]
 
 
 class Version:
+    """
+    Primary Version object.
+    """
+
     def __init__(
         self,
         major: int,
@@ -303,7 +307,6 @@ class Version:
             bool: True if `Version` is valid, else False
 
         Examples:
-
         ```python
         >>> v = Version(1, 2, 4)
         >>> v.is_valid()
@@ -329,7 +332,6 @@ class Version:
             Version: New bumped version.
 
         Examples:
-
         ```python
         >>> v1 = Version(1, 2, 4)
         >>> v1.bump_major()
@@ -355,7 +357,6 @@ class Version:
             Version: New bumped version.
 
         Examples:
-
         ```python
         >>> v1 = Version(1, 2, 4)
         >>> v1.bump_minor()
@@ -381,7 +382,6 @@ class Version:
             Version: New bumped version.
 
         Examples:
-
         ```python
         >>> v1 = Version(1, 2, 4)
         >>> v1.bump_patch()
@@ -407,7 +407,6 @@ class Version:
             str: Version string.
 
         Examples:
-
         ```python
         >>> v = Version(1, 2, 4)
         >>> v.to_string()
@@ -433,7 +432,6 @@ class Version:
             VersionTuple: The Version tuple.
 
         Examples:
-
         ```python
         >>> v = Version(1, 2, 4)
         >>> v.to_tuple()
@@ -458,7 +456,6 @@ class Version:
             VersionDict: The Version dictionary.
 
         Examples:
-
         ```python
         >>> v = Version(1, 2, 4)
         >>> v.to_dict()
@@ -489,7 +486,6 @@ class Version:
             str: The Version JSON string.
 
         Examples:
-
         ```python
         >>> v = Version(1, 2, 4)
         >>> v.to_json()
@@ -527,7 +523,6 @@ class Version:
                 have keys matching the required parts.
 
         Examples:
-
         ```python
         >>> v = {"major": 1, "minor": 2, "patch": 4}
         >>> Version.from_dict(v)
@@ -561,7 +556,6 @@ class Version:
             Version: The constructed Version.
 
         Examples:
-
         ```python
         >>> Version.from_string("v1.2.4")
         Version(major=1, minor=2, patch=4, prerelease=None, buildmetadata=None)
@@ -602,7 +596,6 @@ class Version:
             Version: The constructed Version.
 
         Examples:
-
         ```python
         >>> v = (1, 2, 4)
         >>> Version.from_tuple(v)
@@ -632,7 +625,6 @@ class Version:
             Version: The constructed Version.
 
         Examples:
-
         ```python
         >>> v = '{"major": 1, "minor": 2, "patch": 4}'
         >>> Version.from_json(v)
