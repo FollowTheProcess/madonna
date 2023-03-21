@@ -17,8 +17,6 @@ plugins:
   - search
   - mkdocstrings:
       default_handler: python
-      watch:
-        - madonna
 theme:
   name: material
   palette:
