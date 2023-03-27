@@ -72,7 +72,7 @@ mypy = "1.1.1"
 mkdocs = "1.4.2"
 mkdocs-material = "9.1.4"
 mkdocstrings = { version = "^0.20.0", extras = [ "python" ] }
-pre-commit = "3.2.0"
+pre-commit = "3.2.1"
 pytest-cov = "^4.0.0"
 covdefaults = "^2.2.2"
 ruff = ">=0.0.257,<0.0.260"
