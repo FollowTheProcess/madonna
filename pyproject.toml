@@ -80,7 +80,7 @@ dependencies = [
 ]
 
 [tool.hatch.envs.tests.scripts]
-run = "pytest --cov ./src ./tests"
+run = "pytest --cov ./src ./tests --doctest-modules ./src"
 
 cov = [
   "run",
