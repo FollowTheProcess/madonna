@@ -1,38 +1,23 @@
 [build-system]
-build-backend = "poetry.core.masonry.api"
+build-backend = "hatchling.build"
 requires = [
-  "poetry-core>=1",
+  "hatchling",
 ]
 
-[tool.pytest.ini_options]
-minversion = "7.0"
-addopts = [ "-ra", "--strict-markers", "--strict-config" ]
-xfail_strict = true
-filterwarnings = [ "error" ]
-log_cli_level = "info"
-testpaths = [ "tests" ]
-pythonpath = [ "src" ]
-
-[tool.coverage.run]
-plugins = [ "covdefaults" ]
-
-[tool.mypy]
-files = [ "**/*.py" ]
-ignore_missing_imports = true
-strict = true
-disallow_untyped_decorators = false
-pretty = true
-
-[tool.poetry]
+[project]
 name = "madonna"
 version = "0.2.0"
 description = "Python semver parsing library."
-authors = [ "Tom Fleet <tomfleet2018@gmail.com>" ]
-license = "MIT License"
-homepage = "https://github.com/FollowTheProcess/madonna"
 readme = "README.md"
-repository = "https://github.com/FollowTheProcess/madonna"
-documentation = "https://FollowTheProcess.github.io/madonna/"
+keywords = [
+  "developer-tools",
+  "parser",
+  "semver",
+]
+license = { text = "MIT" }
+maintainers = [ { name = "Tom Fleet" }, { email = "tomfleet2018@gmail.com" } ]
+authors = [ { name = "Tom Fleet" }, { email = "tomfleet2018@gmail.com" } ]
+requires-python = ">=3.8"
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Intended Audience :: Developers",
@@ -50,32 +35,118 @@ classifiers = [
   "Topic :: Utilities",
   "Typing :: Typed",
 ]
-keywords = [ "semver", "parser" ]
-include = [ "madonna/py.typed" ]
-packages = [ { include = "madonna", from = "src" } ]
-
-[tool.poetry.urls]
+[project.urls]
 Documentation = "https://FollowTheProcess.github.io/madonna/"
+Homepage = "https://github.com/FollowTheProcess/madonna"
+Source = "https://github.com/FollowTheProcess/madonna"
 
-[tool.poetry.dependencies]
-python = "^3.8"
+[tool.hatch.envs.default]
+# Include dev dependencies in the default environment
+description = """
+Default environment for development, contains everything
+you need to work on the project, installed by default.
+"""
+extra-dependencies = [
+  "pytest",
+  "black",
+  "coverage[toml]",
+  "mypy",
+  "mkdocs",
+  "mkdocs-material",
+  "mkdocstrings[python]",
+  "pre-commit",
+  "pytest-cov",
+  "covdefaults",
+  "ruff",
+]
 
-[tool.poetry.group.dev.dependencies]
-pytest = "7.2.2"
-bump2version = "1.0.1"
-nox = "2022.11.21"
-black = "23.3.0"
-coverage-badge = "1.1.0"
-coverage = "7.2.2"
-toml = "0.10.2"
-mypy = "1.1.1"
-mkdocs = "1.4.2"
-mkdocs-material = "9.1.5"
-mkdocstrings = { version = "^0.20.0", extras = [ "python" ] }
-pre-commit = "3.2.1"
-pytest-cov = "^4.0.0"
-covdefaults = "^2.2.2"
-ruff = ">=0.0.257,<0.0.261"
+[tool.hatch.envs.default.scripts]
+check = [
+  "pytest --cov ./src ./tests",
+  "pre-commit run --all-files",
+  "mypy",
+]
+
+[tool.hatch.envs.tests]
+template = "tests" # Don't inherit from default
+description = """
+Environment for running tests, contains only the
+test dependencies and installs the project.
+"""
+dependencies = [
+  "pytest",
+  "pytest-cov",
+  "coverage[toml]",
+  "covdefaults",
+]
+
+[tool.hatch.envs.tests.scripts]
+run = "pytest --cov ./src ./tests"
+
+cov = [
+  "run",
+  "coverage xml",
+]
+
+[tool.hatch.envs.lint]
+detached = true
+description = """
+Environment for running linters, contains only the linting
+dependencies and does not install the project.
+"""
+dependencies = [
+  "pre-commit",
+  "mypy",
+]
+
+[tool.hatch.envs.lint.scripts]
+run = [
+  "pre-commit run --all-files",
+  "mypy",
+]
+
+[tool.hatch.envs.docs]
+template = "docs" # Don't inherit from default
+description = """
+Environment for building and serving docs, contains only
+the docs dependencies and does not install the project.
+"""
+dependencies = [
+  "mkdocs",
+  "mkdocs-material",
+  "mkdocstrings[python]",
+]
+
+[tool.hatch.envs.docs.scripts]
+build = "mkdocs build --clean"
+serve = "mkdocs serve"
+deploy = "mkdocs gh-deploy --force"
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = [ "-ra", "--strict-markers", "--strict-config" ]
+xfail_strict = true
+filterwarnings = [
+  "error",
+  "ignore::DeprecationWarning", # DeprecationWarning: read_binary is deprecated. Use files() instead. Comes from virtualenv
+]
+log_cli_level = "info"
+pythonpath = [ "src" ]
+testpaths = [ "tests" ]
+
+[tool.coverage.run]
+plugins = [ "covdefaults" ]
+
+[tool.mypy]
+files = [ "**/*.py" ]
+python_version = "3.8"
+ignore_missing_imports = true
+strict = true
+pretty = true
+disallow_untyped_decorators = false
+show_error_codes = true
+warn_unreachable = true
+enable_error_code = [ "ignore-without-code", "redundant-expr", "truthy-bool" ]
 
 [tool.ruff]
 target-version = "py38"
@@ -132,3 +203,7 @@ required-imports = [ "from __future__ import annotations" ]
   "D103", # Missing docstring in public function
   "D104", # Missing docstring in public package
 ]
+
+[tool.codespell]
+skip = "*.svg"
+ignore-words-list = "ines,Ines"
