@@ -4,8 +4,11 @@
 [![PyPI](https://img.shields.io/pypi/v/madonna.svg?logo=python)](https://pypi.python.org/pypi/madonna)
 [![GitHub](https://img.shields.io/github/v/release/FollowTheProcess/madonna?logo=github&sort=semver)](https://github.com/FollowTheProcess/madonna)
 [![Code Style](https://img.shields.io/badge/code%20style-black-black)](https://github.com/FollowTheProcess/madonna)
+[![Hatch project](https://img.shields.io/badge/%F0%9F%A5%9A-Hatch-4051b5.svg)](https://github.com/pypa/hatch)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/v1.json)](https://github.com/charliermarsh/ruff)
 [![CI](https://github.com/FollowTheProcess/madonna/workflows/CI/badge.svg)](https://github.com/FollowTheProcess/madonna/actions?query=workflow%3ACI)
-[![Coverage](https://github.com/FollowTheProcess/madonna/raw/main/docs/img/coverage.svg)](https://github.com/FollowTheProcess/madonna)
+[![codecov](https://codecov.io/gh/FollowTheProcess/madonna/branch/main/graph/badge.svg?token=OLMR2P3J6N)](https://codecov.io/gh/FollowTheProcess/madonna)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/FollowTheProcess/madonna/main.svg)](https://results.pre-commit.ci/latest/github/FollowTheProcess/madonna/main)
 
 **A Python semver parsing library.**
 
@@ -70,7 +73,6 @@ Your best bet is to check out the [contributing guide] in the docs!
 
 This package was created with [cookiecutter](https://github.com/cookiecutter/cookiecutter) and the [FollowTheProcess/cookie_pypackage] project template.
 
-[cookiecutter]: https://github.com/cookiecutter/cookiecutter
 [FollowTheProcess/cookie_pypackage]: https://github.com/FollowTheProcess/cookie_pypackage
 [contributing guide]: https://FollowTheProcess.github.io/madonna/contributing/contributing.html
 [semver]: https://semver.org
