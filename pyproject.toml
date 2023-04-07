@@ -64,7 +64,6 @@ extra-dependencies = [
 check = [
   "pytest --cov ./src ./tests",
   "pre-commit run --all-files",
-  "mypy",
 ]
 
 [tool.hatch.envs.tests]
@@ -96,14 +95,10 @@ dependencies and does not install the project.
 """
 dependencies = [
   "pre-commit",
-  "mypy",
 ]
 
 [tool.hatch.envs.lint.scripts]
-run = [
-  "pre-commit run --all-files",
-  "mypy",
-]
+run = "pre-commit run --all-files"
 
 [tool.hatch.envs.docs]
 template = "docs" # Don't inherit from default
