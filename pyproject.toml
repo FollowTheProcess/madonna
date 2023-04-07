@@ -62,7 +62,7 @@ extra-dependencies = [
 
 [tool.hatch.envs.default.scripts]
 check = [
-  "pytest --cov ./src ./tests",
+  "pytest --cov ./src ./tests --doctest-modules ./src",
   "pre-commit run --all-files",
 ]
 
@@ -80,7 +80,7 @@ dependencies = [
 ]
 
 [tool.hatch.envs.tests.scripts]
-run = "pytest --cov ./src ./tests"
+run = "pytest --cov ./src ./tests --doctest-modules ./src"
 
 cov = [
   "run",
