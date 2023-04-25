@@ -235,7 +235,7 @@ class Version:
 
             if our_version == other_version:
                 return 0
-            elif our_version > other_version:
+            elif our_version > other_version:  # noqa: RET505
                 return 1
             elif our_version < other_version:
                 return -1
@@ -287,7 +287,7 @@ class Version:
 
             if our_version == other_version:
                 return 0
-            elif our_version > other_version:
+            elif our_version > other_version:  # noqa: RET505
                 return 1
             elif our_version < other_version:
                 return -1
