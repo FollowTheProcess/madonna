@@ -13,7 +13,7 @@ import sys
 from typing import Optional, Tuple
 
 # Compatibility with python 3.8
-if sys.version_info >= (3, 8):  # pragma: no cover # noqa: UP036
+if sys.version_info >= (3, 8):  # pragma: no cover
     from typing import TypedDict
 else:
     from typing_extensions import TypedDict  # pragma: no cover
