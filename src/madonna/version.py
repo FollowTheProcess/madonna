@@ -136,12 +136,10 @@ class Version:
         ):
             return True
 
-        pre_release_comp = self._compare_prerelease(other)
-        if pre_release_comp == -1:
+        if self._compare_prerelease(other) == -1:
             return True
 
-        build_comp = self._compare_build(other)
-        if build_comp == -1:
+        if self._compare_build(other) == -1:
             return True
 
         return False
@@ -157,12 +155,10 @@ class Version:
         ):
             return True
 
-        pre_release_comp = self._compare_prerelease(other)
-        if pre_release_comp == 1:
+        if self._compare_prerelease(other) == 1:
             return True
 
-        build_comp = self._compare_build(other)
-        if build_comp == 1:
+        if self._compare_build(other) == 1:
             return True
 
         return False
@@ -171,10 +167,7 @@ class Version:
         if not isinstance(other, Version):
             raise TypeError(f"Cannot compare object of type Version and {type(other)}")
 
-        if self == other:
-            return True
-
-        if self < other:
+        if self == other or self < other:
             return True
 
         return False
@@ -183,10 +176,7 @@ class Version:
         if not isinstance(other, Version):
             raise TypeError(f"Cannot compare object of type Version and {type(other)}")
 
-        if self == other:
-            return True
-
-        if self > other:
+        if self == other or self > other:
             return True
 
         return False
