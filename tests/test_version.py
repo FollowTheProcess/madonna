@@ -16,10 +16,7 @@ def test_version_init() -> None:
 
 def test_version_repr() -> None:
     v = Version(1, 2, 4, "rc.1", "build.123")
-    want = (
-        "Version(major=1, minor=2, patch=4, prerelease='rc.1',"
-        " buildmetadata='build.123')"
-    )
+    want = "Version(major=1, minor=2, patch=4, prerelease='rc.1'," " buildmetadata='build.123')"
     assert repr(v) == want
 
 
@@ -434,17 +431,11 @@ def test_version_to_dict(version: Version, want: VersionDict) -> None:
     [
         (
             Version(1, 2, 4),
-            (
-                '{"major": 1, "minor": 2, "patch": 4, "prerelease": null,'
-                ' "buildmetadata": null}'
-            ),
+            ('{"major": 1, "minor": 2, "patch": 4, "prerelease": null,' ' "buildmetadata": null}'),
         ),
         (
             Version(1, 2, 4, "rc.1", "build.2"),
-            (
-                '{"major": 1, "minor": 2, "patch": 4, "prerelease": "rc.1",'
-                ' "buildmetadata": "build.2"}'
-            ),
+            ('{"major": 1, "minor": 2, "patch": 4, "prerelease": "rc.1",' ' "buildmetadata": "build.2"}'),
         ),
     ],
 )
@@ -548,10 +539,7 @@ def test_from_tuple(tup: VersionTuple, want: Version) -> None:
             Version(1, 2, 4, "rc.1"),
         ),
         (
-            (
-                '{"major": 1, "minor": 2, "patch": 4, "prerelease":'
-                ' "rc.1","buildmetadata": "build.2"}'
-            ),
+            ('{"major": 1, "minor": 2, "patch": 4, "prerelease":' ' "rc.1","buildmetadata": "build.2"}'),
             Version(1, 2, 4, "rc.1", "build.2"),
         ),
     ],

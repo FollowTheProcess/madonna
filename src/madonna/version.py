@@ -83,9 +83,7 @@ class Version:
         self.buildmetadata = buildmetadata
 
         if any(part < 0 for part in (self.major, self.minor, self.patch)):
-            raise ValueError(
-                f"Version {self!r} is invalid. Parts cannot be less than 0."
-            )
+            raise ValueError(f"Version {self!r} is invalid. Parts cannot be less than 0.")
 
     __slots__ = ("major", "minor", "patch", "prerelease", "buildmetadata")
 
@@ -230,9 +228,7 @@ class Version:
                 return -1
 
         # If we get here, we couldn't parse the pre-release
-        raise ValueError(
-            f"Could not compare {self.prerelease} and {other.prerelease}"
-        )  # pragma: no cover
+        raise ValueError(f"Could not compare {self.prerelease} and {other.prerelease}")  # pragma: no cover
 
     def _compare_build(self, other: Version) -> int:
         """
@@ -264,9 +260,7 @@ class Version:
             others = re.findall(pattern=r"\d+", string=other.buildmetadata)
 
             if not ours or not others:
-                raise ValueError(
-                    "Could not parse comparable build metadata version info."
-                )
+                raise ValueError("Could not parse comparable build metadata version info.")
 
             if len(ours) > 1 or len(others) > 1:
                 raise ValueError("Multiple integers found in build metadata version.")
@@ -282,9 +276,7 @@ class Version:
                 return -1
 
         # If we get here, we couldn't parse the pre-release
-        raise ValueError(
-            f"Could not compare {self.buildmetadata} and {other.buildmetadata}"
-        )  # pragma: no cover
+        raise ValueError(f"Could not compare {self.buildmetadata} and {other.buildmetadata}")  # pragma: no cover
 
     def is_valid(self) -> bool:
         """
