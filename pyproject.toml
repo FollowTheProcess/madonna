@@ -173,6 +173,10 @@ required-imports = [ "from __future__ import annotations" ]
   "D104", # Missing docstring in public package
 ]
 
+[tool.codespell]
+skip = "*.svg"
+ignore-words-list = "ines,Ines"
+
 [tool.pytest.ini_options]
 minversion = "7.0"
 addopts = [ "-ra", "--strict-markers", "--strict-config" ]
@@ -198,7 +202,3 @@ disallow_untyped_decorators = false
 show_error_codes = true
 warn_unreachable = true
 enable_error_code = [ "ignore-without-code", "redundant-expr", "truthy-bool" ]
-
-[tool.codespell]
-skip = "*.svg"
-ignore-words-list = "ines,Ines"
