@@ -75,6 +75,7 @@ class Version:
 
         Raises:
             ValueError: If any numeric version part < 0.
+
         """
         self.major = major
         self.minor = minor
@@ -301,6 +302,7 @@ class Version:
         False
 
         ```
+
         """
         return bool(_SEMVER_REGEX.match(self.to_string()))
 
@@ -326,6 +328,7 @@ class Version:
         Version(major=1, minor=0, patch=0, prerelease=None, buildmetadata=None)
 
         ```
+
         """
         return Version(self.major + 1, 0, 0)
 
@@ -351,6 +354,7 @@ class Version:
         Version(major=1, minor=0, patch=0, prerelease=None, buildmetadata=None)
 
         ```
+
         """
         return Version(self.major, self.minor + 1, 0)
 
@@ -376,6 +380,7 @@ class Version:
         Version(major=1, minor=0, patch=0, prerelease=None, buildmetadata=None)
 
         ```
+
         """
         return Version(self.major, self.minor, self.patch + 1)
 
@@ -401,6 +406,7 @@ class Version:
         'v1.2.4-rc.2+build.6'
 
         ```
+
         """
         return str(self)
 
@@ -426,6 +432,7 @@ class Version:
         (1, 2, 4, 'rc.2', 'build.6')
 
         ```
+
         """
         return (self.major, self.minor, self.patch, self.prerelease, self.buildmetadata)
 
@@ -450,6 +457,7 @@ class Version:
         {'major': 1, 'minor': 2, 'patch': 4, 'prerelease': 'rc.1', 'buildmetadata': 'build.2'}
 
         ```
+
         """
         return {
             "major": self.major,
@@ -480,6 +488,7 @@ class Version:
         '{"major": 1, "minor": 2, "patch": 4, "prerelease": "rc.1", "buildmetadata": "build.2"}'
 
         ```
+
         """
         return json.dumps(self.to_dict())
 
@@ -517,6 +526,7 @@ class Version:
         Version(major=1, minor=2, patch=4, prerelease='rc.1', buildmetadata='build.123')
 
         ```
+
         """
         return Version(**version_dict)
 
@@ -548,6 +558,7 @@ class Version:
         Version(major=1, minor=2, patch=4, prerelease='rc.1', buildmetadata='build.123')
 
         ```
+
         """
         match = _SEMVER_REGEX.match(string)
         if not match:
@@ -590,6 +601,7 @@ class Version:
         Version(major=1, minor=2, patch=4, prerelease='rc.1', buildmetadata='build.123')
 
         ```
+
         """
         return Version(*tup)
 
@@ -619,6 +631,7 @@ class Version:
         Version(major=1, minor=2, patch=4, prerelease='rc.1', buildmetadata='build.123')
 
         ```
+
         """
         data: VersionDict = json.loads(json_string)
         return Version(**data)
