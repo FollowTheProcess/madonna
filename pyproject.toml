@@ -15,8 +15,14 @@ keywords = [
   "semver",
 ]
 license = { text = "MIT" }
-maintainers = [ { name = "Tom Fleet" }, { email = "tomfleet2018@gmail.com" } ]
-authors = [ { name = "Tom Fleet" }, { email = "tomfleet2018@gmail.com" } ]
+maintainers = [
+  { name = "Tom Fleet" },
+  { email = "tomfleet2018@gmail.com" },
+]
+authors = [
+  { name = "Tom Fleet" },
+  { email = "tomfleet2018@gmail.com" },
+]
 requires-python = ">=3.8"
 classifiers = [
   "Development Status :: 3 - Alpha",
@@ -35,10 +41,9 @@ classifiers = [
   "Topic :: Utilities",
   "Typing :: Typed",
 ]
-[project.urls]
-Documentation = "https://FollowTheProcess.github.io/madonna/"
-Homepage = "https://github.com/FollowTheProcess/madonna"
-Source = "https://github.com/FollowTheProcess/madonna"
+urls.Documentation = "https://FollowTheProcess.github.io/madonna/"
+urls.Homepage = "https://github.com/FollowTheProcess/madonna"
+urls.Source = "https://github.com/FollowTheProcess/madonna"
 
 [tool.hatch.envs.default]
 # Include dev dependencies in the default environment
@@ -160,17 +165,14 @@ ignore = [
   "PT011",  # ValueError is too vague
 ]
 
-[tool.ruff.mccabe]
-max-complexity = 15
-
-[tool.ruff.isort]
-required-imports = [ "from __future__ import annotations" ]
-
-[tool.ruff.per-file-ignores]
-"tests/**/*.py" = [
+mccabe.max-complexity = 15
+per-file-ignores."tests/**/*.py" = [
   "D100", # Missing docstring in public module
   "D103", # Missing docstring in public function
   "D104", # Missing docstring in public package
+]
+isort.required-imports = [
+  "from __future__ import annotations",
 ]
 
 [tool.codespell]
@@ -179,21 +181,33 @@ ignore-words-list = "ines,Ines"
 
 [tool.pytest.ini_options]
 minversion = "7.0"
-addopts = [ "-ra", "--strict-markers", "--strict-config" ]
+addopts = [
+  "-ra",
+  "--strict-markers",
+  "--strict-config",
+]
 xfail_strict = true
 filterwarnings = [
   "error",
   "ignore::DeprecationWarning", # DeprecationWarning: read_binary is deprecated. Use files() instead. Comes from virtualenv
 ]
 log_cli_level = "info"
-pythonpath = [ "src" ]
-testpaths = [ "tests" ]
+pythonpath = [
+  "src",
+]
+testpaths = [
+  "tests",
+]
 
 [tool.coverage.run]
-plugins = [ "covdefaults" ]
+plugins = [
+  "covdefaults",
+]
 
 [tool.mypy]
-files = [ "**/*.py" ]
+files = [
+  "**/*.py",
+]
 python_version = "3.8"
 ignore_missing_imports = true
 strict = true
@@ -201,4 +215,8 @@ pretty = true
 disallow_untyped_decorators = false
 show_error_codes = true
 warn_unreachable = true
-enable_error_code = [ "ignore-without-code", "redundant-expr", "truthy-bool" ]
+enable_error_code = [
+  "ignore-without-code",
+  "redundant-expr",
+  "truthy-bool",
+]
