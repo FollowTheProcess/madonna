@@ -125,55 +125,61 @@ deploy = "mkdocs gh-deploy --force"
 [tool.ruff]
 target-version = "py38"
 line-length = 120
-select = [
+
+lint.select = [
+  "ANN", # Type annotations
+  "ARG", # Unused arguments
+  "B",   # Flake8 bugbear
+  "BLE", # No blind excepts
+  "C4",  # Flake8 comprehensions
+  "C90", # Complexity
+  "D",   # Pydocstyle
   # https://github.com/charliermarsh/ruff#supported-rules
   "E",   # Pycodestyle errors
-  "F",   # Pyflakes errors
-  "W",   # Pycodestyle warnings
-  "UP",  # All pyupgrade rules
-  "N",   # PEP8 naming
-  "I",   # Isort
-  "D",   # Pydocstyle
-  "C90", # Complexity
-  "C4",  # Flake8 comprehensions
   "ERA", # Commented out code
-  "B",   # Flake8 bugbear
-  "RUF", # Ruff specific rules
-  "YTT", # Flake8 2020
-  "ANN", # Type annotations
-  "BLE", # No blind excepts
+  "F",   # Pyflakes errors
+  "I",   # Isort
+  "N",   # PEP8 naming
+  "PGH", # Pygrep hooks
   "PIE", # Flake8 pie
   "PT",  # Pytest style
-  "RET", # Function returns
-  "SIM", # Simplify
-  "ARG", # Unused arguments
   "PTH", # Use pathlib over os.path
-  "PGH", # Pygrep hooks
+  "RET", # Function returns
+  "RUF", # Ruff specific rules
+  "SIM", # Simplify
+  "UP",  # All pyupgrade rules
+  "W",   # Pycodestyle warnings
+  "YTT", # Flake8 2020
 ]
-ignore = [
-  "D203",   # One blank line before class docstring
-  "D212",   # Multi-line docstring summary should be on the first line
-  "D105",   # Missing docstring in magic method (non init)
-  "D200",   # One line docstring should all be on one line
-  "D401",   # First line should be in imperative mood
-  "D205",   # One blank line required between summary line and description
-  "D417",   # Wants sphinx style docstrings
-  "D406",   # Section names should end with a newline
-  "D407",   # Missing dashed underline after section
+lint.ignore = [
   "ANN101", # Missing type annotation for self in method
   "ANN102", # Missing type annotation for cls in classmethod
+  "D105",   # Missing docstring in magic method (non init)
+  "D200",   # One line docstring should all be on one line
+  "D203",   # One blank line before class docstring
+  "D205",   # One blank line required between summary line and description
+  "D212",   # Multi-line docstring summary should be on the first line
+  "D401",   # First line should be in imperative mood
+  "D406",   # Section names should end with a newline
+  "D407",   # Missing dashed underline after section
+  "D417",   # Wants sphinx style docstrings
   "PT011",  # ValueError is too vague
 ]
-
-mccabe.max-complexity = 15
-per-file-ignores."tests/**/*.py" = [
-  "D100", # Missing docstring in public module
-  "D103", # Missing docstring in public function
-  "D104", # Missing docstring in public package
+lint.per-file-ignores."conftest.py" = [
+  "TCH", # Conftest is only run for tests (with dev dependencies)
 ]
-isort.required-imports = [
+lint.per-file-ignores."tests/**/*.py" = [
+  "ARG001", # Thinks pytest fixtures are unused arguments
+  "D103",   # Missing docstring in tests
+  "D104",   # Missing docstring in __init__.py in tests (which is fine)
+  "FBT001", # Tests are allowed positional bools (fixtures etc.)
+  "S101",   # Assert is allowed in tests (obviously)
+  "TCH",    # Tests will be run with dev dependencies so we don't care
+]
+lint.isort.required-imports = [
   "from __future__ import annotations",
 ]
+lint.mccabe.max-complexity = 15
 
 [tool.codespell]
 skip = "*.svg"
