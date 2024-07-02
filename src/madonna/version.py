@@ -138,10 +138,7 @@ class Version:
         if self._compare_prerelease(other) == -1:
             return True
 
-        if self._compare_build(other) == -1:
-            return True
-
-        return False
+        return self._compare_build(other) == -1
 
     def __gt__(self, other: object) -> bool:
         if not isinstance(other, Version):
@@ -157,28 +154,19 @@ class Version:
         if self._compare_prerelease(other) == 1:
             return True
 
-        if self._compare_build(other) == 1:
-            return True
-
-        return False
+        return self._compare_build(other) == 1
 
     def __le__(self, other: object) -> bool:
         if not isinstance(other, Version):
             raise TypeError(f"Cannot compare object of type Version and {type(other)}")
 
-        if self == other or self < other:
-            return True
-
-        return False
+        return bool(self == other or self < other)
 
     def __ge__(self, other: object) -> bool:
         if not isinstance(other, Version):
             raise TypeError(f"Cannot compare object of type Version and {type(other)}")
 
-        if self == other or self > other:
-            return True
-
-        return False
+        return bool(self == other or self > other)
 
     def __hash__(self) -> int:
         return hash(self.to_tuple())
