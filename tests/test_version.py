@@ -5,6 +5,7 @@ Tests for the Version class.
 from __future__ import annotations
 
 import pytest
+
 from madonna import Version
 from madonna.version import VersionDict, VersionTuple
 
