@@ -70,7 +70,7 @@ jobs:
         run: hatch run tests:cov
 
       - name: Upload Coverage to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           files: ./coverage.xml
 
