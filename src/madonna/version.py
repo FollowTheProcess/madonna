@@ -86,7 +86,7 @@ class Version:
         if any(part < 0 for part in (self.major, self.minor, self.patch)):
             raise ValueError(f"Version {self!r} is invalid. Parts cannot be less than 0.")
 
-    __slots__ = ("major", "minor", "patch", "prerelease", "buildmetadata")
+    __slots__ = ("buildmetadata", "major", "minor", "patch", "prerelease")
 
     def __repr__(self) -> str:
         return (
