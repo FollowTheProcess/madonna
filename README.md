@@ -15,6 +15,9 @@
 
 * Documentation: [https://FollowTheProcess.github.io/madonna/](<https://FollowTheProcess.github.io/madonna/>)
 
+> [!WARNING]
+> `madonna` is no longer under active maintenance. I barely write any python any more, I haven't made changes to pytoil in a while and I'm focussed on other projects 🧠
+
 ## Project Description
 
 Madonna is a small, simple [semver] utility library with support for parsing, writing, and otherwise interacting with semantic versions in code.
